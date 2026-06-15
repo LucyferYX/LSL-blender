@@ -1,0 +1,670 @@
+{
+    "Start_Position": {
+        "right": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 0
+    },
+    "Hand_Relaxed": {
+        "right": {
+            "shape": "Hand_Relaxed",
+            "orientation": "Hand_Relaxed",
+            "move": null
+        },
+        "left": {
+            "shape": "Hand_Relaxed",
+            "orientation": "Hand_Relaxed",
+            "move": null
+        },
+        "head": null,
+        "duration": 0
+    },
+    "a": {
+        "right": {
+            "shape": "Hand_A",
+            "orientation": "Orientation_Upwards",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "ā": {
+        "right": {
+            "shape": "Hand_A",
+            "orientation": "Orientation_Upwards",
+            "move": { "type": "slide", "direction": "right" }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 12
+    },
+    "b": {
+        "right": {
+            "shape": "Hand_B",
+            "orientation": "Orientation_Upwards",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "c": {
+        "right": {
+            "shape": "Hand_C",
+            "orientation": "Orientation_Left",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "č": {
+        "right": {
+            "shape": "Hand_C",
+            "orientation": "Orientation_Left",
+            "move": "checkmark"
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 18
+    },
+    "d": {
+        "right": {
+            "shape": "Hand_N",
+            "orientation": "Orientation_UpwardsTiltedLeft",
+            "move": "halfcircle"
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 20
+    },
+    "e": {
+        "right": {
+            "shape": "Hand_E",
+            "orientation": "Orientation_Left",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "ē": {
+        "right": {
+            "shape": "Hand_E",
+            "orientation": "Orientation_Left",
+            "move": { "type": "slide", "direction": "right" }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 12
+    },
+    "f": {
+        "right": {
+            "shape": "Hand_F",
+            "orientation": "Orientation_Left",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "g": {
+        "right": {
+            "shape": "Hand_G",
+            "orientation": "Orientation_BackwardsTiltedLeft",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "ģ": {
+        "right": {
+            "shape": "Hand_G",
+            "orientation": "Orientation_BackwardsTiltedLeft",
+            "move": "checkmark"
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 18
+    },
+    "h": {
+        "right": {
+            "shape": "Hand_H",
+            "orientation": "Orientation_Upwards",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "i": {
+        "right": {
+            "shape": "Hand_I",
+            "orientation": "Orientation_Upwards",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "ī": {
+        "right": {
+            "shape": "Hand_I",
+            "orientation": "Orientation_Upwards",
+            "move": { "type": "slide", "direction": "right" }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 12
+    },
+    "j": {
+        "right": {
+            "shape": "Hand_I",
+            "orientation": "Orientation_Upwards",
+            "move": "halfcircle"
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 20
+    },
+    "k": {
+        "right": {
+            "shape": "Hand_V",
+            "orientation": "Orientation_BackwardsTiltedForwards",
+            "move": "side_flip"
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 12
+    },
+    "ķ": {
+        "right": {
+            "shape": "Hand_V",
+            "orientation": "Orientation_Upwards",
+            "move": "checkmark"
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 18
+    },
+    "l": {
+        "right": {
+            "shape": "Hand_L",
+            "orientation": "Orientation_Upwards",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "ļ": {
+        "right": {
+            "shape": "Hand_L",
+            "orientation": "Orientation_Upwards",
+            "move": "checkmark"
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 18
+    },
+    "m": {
+        "right": {
+            "shape": "Hand_M",
+            "orientation": "Orientation_Upwards",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "n": {
+        "right": {
+            "shape": "Hand_N",
+            "orientation": "Orientation_Upwards",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "ņ": {
+        "right": {
+            "shape": "Hand_N",
+            "orientation": "Orientation_Upwards",
+            "move": "checkmark"
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 18
+    },
+    "o": {
+        "right": {
+            "shape": "Hand_O",
+            "orientation": "Orientation_Left",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "p": {
+        "right": {
+            "shape": "Hand_P",
+            "orientation": "Orientation_Left",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "r": {
+        "right": {
+            "shape": "Hand_R",
+            "orientation": "Orientation_UpwardsTiltedLeft",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "s": {
+        "right": {
+            "shape": "Hand_P",
+            "orientation": "Orientation_Forwards",
+            "move": "s_shape"
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 20
+    },
+    "š": {
+        "right": {
+            "shape": "Hand_P",
+            "orientation": "Orientation_Forwards",
+            "move": "checkmark"
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 18
+    },
+    "t": {
+        "right": {
+            "shape": "Hand_T",
+            "orientation": "Orientation_UpwardsTiltedLeft",
+            "move": "point_down"
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 12
+    },
+    "u": {
+        "right": {
+            "shape": "Hand_U",
+            "orientation": "Orientation_Upwards",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "ū": {
+        "right": {
+            "shape": "Hand_U",
+            "orientation": "Orientation_Upwards",
+            "move": { "type": "slide", "direction": "right" }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 12
+    },
+    "v": {
+        "right": {
+            "shape": "Hand_V",
+            "orientation": "Orientation_Upwards",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "z": {
+        "right": {
+            "shape": "Hand_Z",
+            "orientation": "Orientation_Left",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "ž": {
+        "right": {
+            "shape": "Hand_Z",
+            "orientation": "Orientation_Left",
+            "move": "checkmark"
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 18
+    },
+    "w": {
+        "right": {
+            "shape": "Hand_W",
+            "orientation": "Orientation_Upwards",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "1": {
+        "right": {
+            "shape": "Hand_1",
+            "orientation": "Orientation_BackwardsNumbers",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "2": {
+        "right": {
+            "shape": "Hand_2",
+            "orientation": "Orientation_BackwardsNumbers",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "3": {
+        "right": {
+            "shape": "Hand_3",
+            "orientation": "Orientation_BackwardsNumbers",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "4": {
+        "right": {
+            "shape": "Hand_4",
+            "orientation": "Orientation_BackwardsNumbers",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "5": {
+        "right": {
+            "shape": "Hand_5",
+            "orientation": "Orientation_BackwardsNumbers",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "6": {
+        "right": {
+            "shape": "Hand_6",
+            "orientation": "Orientation_BackwardsNumbers",
+            "move": null
+        },
+        "left": {
+            "shape": "Hand_5",
+            "orientation": "Orientation_BackwardsNumbers",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "7": {
+        "right": {
+            "shape": "Hand_L",
+            "orientation": "Orientation_BackwardsNumbers",
+            "move": null
+        },
+        "left": {
+            "shape": "Hand_5",
+            "orientation": "Orientation_BackwardsNumbers",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "8": {
+        "right": {
+            "shape": "Hand_3",
+            "orientation": "Orientation_BackwardsNumbers",
+            "move": null
+        },
+        "left": {
+            "shape": "Hand_5",
+            "orientation": "Orientation_BackwardsNumbers",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "9": {
+        "right": {
+            "shape": "Hand_4",
+            "orientation": "Orientation_BackwardsNumbers",
+            "move": null
+        },
+        "left": {
+            "shape": "Hand_5",
+            "orientation": "Orientation_BackwardsNumbers",
+            "move": null
+        },
+        "head": null,
+        "duration": 10
+    },
+    "10": {
+        "right": {
+            "shape": "Hand_E",
+            "orientation": "Orientation_Left",
+            "move": { "type": "small_slide", "direction": "right", "moves": 2}
+        },
+        "left": "mirror_right",
+        "head": null,
+        "duration": 14
+    },
+    "mans": {
+        "right": {
+            "shape": "Hand_B",
+            "orientation": "Orientation_BackwardsTiltedLeft",
+            "move": null
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": "Head_Nod",
+        "duration": 12
+    },
+    "karte": {
+        "right": {
+            "shape": "Hand_L",
+            "orientation": "Orientation_Upwards",
+            "move": { "type": "slide", "direction": "right" }
+        },
+        "left": {
+            "shape": "Hand_L",
+            "orientation": "Orientation_Upwards",
+            "move": { "type": "slide", "direction": "left" }
+        },
+        "head": null,
+        "duration": 14
+    }
+}

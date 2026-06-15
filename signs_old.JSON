@@ -1,0 +1,313 @@
+{
+    "a": {
+        "shape": "Hand_A",
+        "orientation": "Orientation_Upwards",
+        "move": null,
+        "head": null,
+        "hands": ["right", "left"],
+        "duration": 10
+    },
+    "ā": {
+        "shape": "Hand_A",
+        "orientation": "Orientation_Upwards",
+        "move": "slide",
+        "head": null,
+        "hands": ["right", "left"],
+        "duration": 12
+    },
+    "b": {
+        "shape": "Hand_B",
+        "orientation": "Orientation_Upwards",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "c": {
+        "shape": "Hand_C",
+        "orientation": "Orientation_Left",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "č": {
+        "shape": "Hand_C",
+        "orientation": "Orientation_Left",
+        "move": "checkmark",
+        "head": null,
+        "hands": ["right", "left"],
+        "duration": 18
+    },
+    "d": {
+        "shape": "Hand_N",
+        "orientation": "Orientation_UpwardsTiltedLeft",
+        "move": "halfcircle",
+        "head": null,
+        "hands": ["right", "left"],
+        "duration": 20
+    },
+    "e": {
+        "shape": "Hand_E",
+        "orientation": "Orientation_Left",
+        "move": null,
+        "head": null,
+        "hands": ["right", "left"],
+        "duration": 10
+    },
+    "ē": {
+        "shape": "Hand_E",
+        "orientation": "Orientation_Left",
+        "move": "slide",
+        "head": null,
+        "duration": 12
+    },
+    "f": {
+        "shape": "Hand_F",
+        "orientation": "Orientation_Left",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "g": {
+        "shape": "Hand_G",
+        "orientation": "Orientation_BackwardsTiltedLeft",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "ģ": {
+        "shape": "Hand_G",
+        "orientation": "Orientation_BackwardsTiltedLeft",
+        "move": "checkmark",
+        "head": null,
+        "duration": 18
+    },
+    "h": {
+        "shape": "Hand_H",
+        "orientation": "Orientation_Upwards",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "i": {
+        "shape": "Hand_I",
+        "orientation": "Orientation_Upwards",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "ī": {
+        "shape": "Hand_I",
+        "orientation": "Orientation_Upwards",
+        "move": "slide",
+        "head": null,
+        "duration": 12
+    },
+    "j": {
+        "shape": "Hand_I",
+        "orientation": "Orientation_Upwards",
+        "move": "halfcircle",
+        "head": null,
+        "duration": 20
+    },
+    "k": {
+        "shape": "Hand_V",
+        "orientation": "Orientation_BackwardsTiltedForwards",
+        "move": "side_flip",
+        "head": null,
+        "duration": 12
+    },
+    "ķ": {
+        "shape": "Hand_V",
+        "orientation": "Orientation_Upwards",
+        "move": "checkmark",
+        "head": null,
+        "duration": 18
+    },
+    "l": {
+        "shape": "Hand_L",
+        "orientation": "Orientation_Upwards",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "ļ": {
+        "shape": "Hand_L",
+        "orientation": "Orientation_Upwards",
+        "move": "checkmark",
+        "head": null,
+        "duration": 18
+    },
+    "m": {
+        "shape": "Hand_M",
+        "orientation": "Orientation_Upwards",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "n": {
+        "shape": "Hand_N",
+        "orientation": "Orientation_Upwards",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "ņ": {
+        "shape": "Hand_N",
+        "orientation": "Orientation_Upwards",
+        "move": "checkmark",
+        "head": null,
+        "duration": 18
+    },
+    "o": {
+        "shape": "Hand_O",
+        "orientation": "Orientation_Left",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "p": {
+        "shape": "Hand_P",
+        "orientation": "Orientation_Left",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "r": {
+        "shape": "Hand_R",
+        "orientation": "Orientation_UpwardsTiltedLeft",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "s": {
+        "shape": "Hand_P",
+        "orientation": "Orientation_Forwards",
+        "move": "s_shape",
+        "head": null,
+        "hands": ["right", "left"],
+        "duration": 20
+    },
+    "š": {
+        "shape": "Hand_P",
+        "orientation": "Orientation_Forwards",
+        "move": "checkmark",
+        "head": null,
+        "duration": 18
+    },
+    "t": {
+        "shape": "Hand_T",
+        "orientation": "Orientation_UpwardsTiltedLeft",
+        "move": "point_down",
+        "head": null,
+        "hands": ["right", "left"],
+        "duration": 12
+    },
+    "u": {
+        "shape": "Hand_U",
+        "orientation": "Orientation_Upwards",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "ū": {
+        "shape": "Hand_U",
+        "orientation": "Orientation_Upwards",
+        "move": "slide",
+        "head": null,
+        "duration": 12
+    },
+    "v": {
+        "shape": "Hand_V",
+        "orientation": "Orientation_Upwards",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "z": {
+        "shape": "Hand_Z",
+        "orientation": "Orientation_Left",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "ž": {
+        "shape": "Hand_Z",
+        "orientation": "Orientation_Left",
+        "move": "checkmark",
+        "head": null,
+        "duration": 18
+    },
+    "w": {
+        "shape": "Hand_W",
+        "orientation": "Orientation_Upwards",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "1": {
+        "shape": "Hand_1",
+        "orientation": "Orientation_BackwardsNumbers",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "2": {
+        "shape": "Hand_2",
+        "orientation": "Orientation_BackwardsNumbers",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "3": {
+        "shape": "Hand_3",
+        "orientation": "Orientation_BackwardsNumbers",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "4": {
+        "shape": "Hand_4",
+        "orientation": "Orientation_BackwardsNumbers",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "5": {
+        "shape": "Hand_5",
+        "orientation": "Orientation_BackwardsNumbers",
+        "move": null,
+        "head": null,
+        "duration": 10
+    },
+    "6": {
+        "shape": "Hand_B",
+        "orientation": "Orientation_BackwardsNumbers",
+        "move": null,
+        "head": null,
+        "hands": ["right"],
+        "duration": 10
+    },
+    "7": {
+        "shape": "Hand_B",
+        "orientation": "Orientation_BackwardsNumbers",
+        "move": null,
+        "head": null,
+        "hands": ["right", "left"],
+        "duration": 10
+    },
+    "8": {
+        "shape": "Hand_A",
+        "orientation": "Orientation_BackwardsNumbers",
+        "move": null,
+        "head": null,
+        "hands": ["right", "left"],
+        "duration": 10
+    },
+    "mans": {
+        "shape": "Hand_B",
+        "orientation": "Orientation_BackwardsTiltedLeft",
+        "move": null,
+        "head": "Head_Nod",
+        "duration": 12
+    }
+}
