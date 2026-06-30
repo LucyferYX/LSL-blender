@@ -30,6 +30,7 @@
     "a": {
         "right": {
             "shape": "Hand_A",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": null
         },
@@ -44,6 +45,7 @@
     "ā": {
         "right": {
             "shape": "Hand_A",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": { "type": "slide", "direction": "right" }
         },
@@ -58,6 +60,7 @@
     "b": {
         "right": {
             "shape": "Hand_B",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": null
         },
@@ -72,6 +75,7 @@
     "c": {
         "right": {
             "shape": "Hand_C",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Left",
             "move": null
         },
@@ -86,6 +90,7 @@
     "č": {
         "right": {
             "shape": "Hand_C",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Left",
             "move": "checkmark"
         },
@@ -100,6 +105,7 @@
     "d": {
         "right": {
             "shape": "Hand_N",
+            "location": "Location_Neutral",
             "orientation": "Orientation_UpwardsTiltedLeft",
             "move": "halfcircle"
         },
@@ -114,6 +120,7 @@
     "e": {
         "right": {
             "shape": "Hand_E",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Left",
             "move": null
         },
@@ -128,6 +135,7 @@
     "ē": {
         "right": {
             "shape": "Hand_E",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Left",
             "move": { "type": "slide", "direction": "right" }
         },
@@ -142,6 +150,7 @@
     "f": {
         "right": {
             "shape": "Hand_F",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Left",
             "move": null
         },
@@ -156,6 +165,7 @@
     "g": {
         "right": {
             "shape": "Hand_G",
+            "location": "Location_Neutral",
             "orientation": "Orientation_BackwardsTiltedLeft",
             "move": null
         },
@@ -170,6 +180,7 @@
     "ģ": {
         "right": {
             "shape": "Hand_G",
+            "location": "Location_Neutral",
             "orientation": "Orientation_BackwardsTiltedLeft",
             "move": "checkmark"
         },
@@ -184,6 +195,7 @@
     "h": {
         "right": {
             "shape": "Hand_H",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": null
         },
@@ -198,6 +210,7 @@
     "i": {
         "right": {
             "shape": "Hand_I",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": null
         },
@@ -212,6 +225,7 @@
     "ī": {
         "right": {
             "shape": "Hand_I",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": { "type": "slide", "direction": "right" }
         },
@@ -226,6 +240,7 @@
     "j": {
         "right": {
             "shape": "Hand_I",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": "halfcircle"
         },
@@ -240,6 +255,7 @@
     "k": {
         "right": {
             "shape": "Hand_V",
+            "location": "Location_Neutral",
             "orientation": "Orientation_BackwardsTiltedForwards",
             "move": "side_flip"
         },
@@ -254,6 +270,7 @@
     "ķ": {
         "right": {
             "shape": "Hand_V",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": "checkmark"
         },
@@ -268,6 +285,7 @@
     "l": {
         "right": {
             "shape": "Hand_L",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": null
         },
@@ -282,6 +300,7 @@
     "ļ": {
         "right": {
             "shape": "Hand_L",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": "checkmark"
         },
@@ -296,6 +315,7 @@
     "m": {
         "right": {
             "shape": "Hand_M",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": null
         },
@@ -310,6 +330,7 @@
     "n": {
         "right": {
             "shape": "Hand_N",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": null
         },
@@ -324,6 +345,7 @@
     "ņ": {
         "right": {
             "shape": "Hand_N",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": "checkmark"
         },
@@ -338,6 +360,7 @@
     "o": {
         "right": {
             "shape": "Hand_O",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Left",
             "move": null
         },
@@ -352,6 +375,7 @@
     "p": {
         "right": {
             "shape": "Hand_P",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Left",
             "move": null
         },
@@ -366,6 +390,7 @@
     "r": {
         "right": {
             "shape": "Hand_R",
+            "location": "Location_Neutral",
             "orientation": "Orientation_UpwardsTiltedLeft",
             "move": null
         },
@@ -380,6 +405,7 @@
     "s": {
         "right": {
             "shape": "Hand_P",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Forwards",
             "move": "s_shape"
         },
@@ -394,6 +420,7 @@
     "š": {
         "right": {
             "shape": "Hand_P",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Forwards",
             "move": "checkmark"
         },
@@ -408,6 +435,7 @@
     "t": {
         "right": {
             "shape": "Hand_T",
+            "location": "Location_Neutral",
             "orientation": "Orientation_UpwardsTiltedLeft",
             "move": "point_down"
         },
@@ -422,6 +450,7 @@
     "u": {
         "right": {
             "shape": "Hand_U",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": null
         },
@@ -436,6 +465,7 @@
     "ū": {
         "right": {
             "shape": "Hand_U",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": { "type": "slide", "direction": "right" }
         },
@@ -450,6 +480,7 @@
     "v": {
         "right": {
             "shape": "Hand_V",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": null
         },
@@ -464,6 +495,7 @@
     "z": {
         "right": {
             "shape": "Hand_Z",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Left",
             "move": null
         },
@@ -478,6 +510,7 @@
     "ž": {
         "right": {
             "shape": "Hand_Z",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Left",
             "move": "checkmark"
         },
@@ -492,6 +525,7 @@
     "w": {
         "right": {
             "shape": "Hand_W",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": null
         },
@@ -506,6 +540,7 @@
     "1": {
         "right": {
             "shape": "Hand_1",
+            "location": "Location_Neutral",
             "orientation": "Orientation_BackwardsNumbers",
             "move": null
         },
@@ -520,6 +555,7 @@
     "2": {
         "right": {
             "shape": "Hand_2",
+            "location": "Location_Neutral",
             "orientation": "Orientation_BackwardsNumbers",
             "move": null
         },
@@ -534,6 +570,7 @@
     "3": {
         "right": {
             "shape": "Hand_3",
+            "location": "Location_Neutral",
             "orientation": "Orientation_BackwardsNumbers",
             "move": null
         },
@@ -548,6 +585,7 @@
     "4": {
         "right": {
             "shape": "Hand_4",
+            "location": "Location_Neutral",
             "orientation": "Orientation_BackwardsNumbers",
             "move": null
         },
@@ -562,6 +600,7 @@
     "5": {
         "right": {
             "shape": "Hand_5",
+            "location": "Location_Neutral",
             "orientation": "Orientation_BackwardsNumbers",
             "move": null
         },
@@ -576,11 +615,13 @@
     "6": {
         "right": {
             "shape": "Hand_6",
+            "location": "Location_Neutral",
             "orientation": "Orientation_BackwardsNumbers",
             "move": null
         },
         "left": {
             "shape": "Hand_5",
+            "location": "Location_Neutral",
             "orientation": "Orientation_BackwardsNumbers",
             "move": null
         },
@@ -590,11 +631,13 @@
     "7": {
         "right": {
             "shape": "Hand_L",
+            "location": "Location_Neutral",
             "orientation": "Orientation_BackwardsNumbers",
             "move": null
         },
         "left": {
             "shape": "Hand_5",
+            "location": "Location_Neutral",
             "orientation": "Orientation_BackwardsNumbers",
             "move": null
         },
@@ -604,11 +647,13 @@
     "8": {
         "right": {
             "shape": "Hand_3",
+            "location": "Location_Neutral",
             "orientation": "Orientation_BackwardsNumbers",
             "move": null
         },
         "left": {
             "shape": "Hand_5",
+            "location": "Location_Neutral",
             "orientation": "Orientation_BackwardsNumbers",
             "move": null
         },
@@ -618,11 +663,13 @@
     "9": {
         "right": {
             "shape": "Hand_4",
+            "location": "Location_Neutral",
             "orientation": "Orientation_BackwardsNumbers",
             "move": null
         },
         "left": {
             "shape": "Hand_5",
+            "location": "Location_Neutral",
             "orientation": "Orientation_BackwardsNumbers",
             "move": null
         },
@@ -632,6 +679,7 @@
     "10": {
         "right": {
             "shape": "Hand_E",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Left",
             "move": { "type": "small_slide", "direction": "right", "moves": 2}
         },
@@ -642,6 +690,7 @@
     "mans": {
         "right": {
             "shape": "Hand_B",
+            "location": "Location_Neutral",
             "orientation": "Orientation_BackwardsTiltedLeft",
             "move": null
         },
@@ -656,11 +705,13 @@
     "karte": {
         "right": {
             "shape": "Hand_L",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": { "type": "slide", "direction": "right" }
         },
         "left": {
             "shape": "Hand_L",
+            "location": "Location_Neutral",
             "orientation": "Orientation_Upwards",
             "move": { "type": "slide", "direction": "left" }
         },
