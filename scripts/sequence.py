@@ -1,7 +1,26 @@
 # --- SEQUENCE ---
 
+def _apply_start_position(side, frame):
+    """Apply the Start_Position sign from SIGN_LIBRARY so it stays in sync with signs.json."""
+    sp = SIGN_LIBRARY.get("Start_Position", {})
+    hd = sp.get(side, {})
+    if not hd:
+        return
+    loc   = hd.get("location")
+    ori   = hd.get("orientation")
+    shape = hd.get("shape")
+    if loc:
+        load_pose(loc, side=side, apply_arm=True, apply_fingers=False,
+                  apply_arm_location=True, apply_arm_rotation=False, keyframe_on_frame=frame)
+    if ori:
+        load_pose(ori, side=side, apply_arm=True, apply_fingers=False,
+                  apply_arm_location=False, apply_arm_rotation=True, keyframe_on_frame=frame)
+    if shape:
+        load_pose(shape, side=side, apply_arm=False, apply_fingers=True, keyframe_on_frame=frame)
+
+
 def lock_pose_at_frame(location, orientation, shape, frame, side="right", use_location=True, apply_orientation=True):
-    hand_name, forearm_name, arm_name, finger_list = get_rig_info(side)
+    hand_name, arm_name, finger_list = get_rig_info(side)
 
     if apply_orientation:
         load_pose(location, side=side, apply_arm=True, apply_fingers=False,
@@ -11,7 +30,7 @@ def lock_pose_at_frame(location, orientation, shape, frame, side="right", use_lo
                   apply_arm_location=False, apply_arm_rotation=True,
                   keyframe_on_frame=frame)
     else:
-        for part_name in [arm_name, forearm_name]:
+        for part_name in [arm_name]:
             obj = bpy.data.objects.get(part_name)
             if obj:
                 obj.keyframe_insert(data_path="rotation_euler", frame=frame)
@@ -36,10 +55,12 @@ def create_sequence(sentence):
     transition_time, mid_transition = 8, 4
     default_hold_time, pause_buffer = 10, 7
 
-    load_pose("Start_Position", side="right", keyframe_on_frame=1)
-    load_pose("Start_Position", side="left",  keyframe_on_frame=1)
+    _apply_start_position("right", 1)
+    _apply_start_position("left",  1)
+    keyframe_expression(None, 1)
 
     words = sentence.lower().split()
+    prev_expression = None
 
     for word in words:
         data = SIGN_LIBRARY.get(word)
@@ -48,6 +69,7 @@ def create_sequence(sentence):
 
         hold_time   = data.get("duration", default_hold_time)
         head_action = data.get("head")
+        expression  = data.get("expression")
         is_mirror   = data.get("left") == "mirror_right"
 
         target_frame   = current_frame + transition_time
@@ -78,6 +100,9 @@ def create_sequence(sentence):
                       apply_arm_location=False, apply_arm_rotation=True, keyframe_on_frame=target_frame)
         for side, hd in sides_config.items():
             load_pose(hd["shape"], side=side, apply_arm=False, apply_fingers=True, keyframe_on_frame=target_frame)
+        if expression != prev_expression:
+            keyframe_expression(prev_expression, current_frame)
+        keyframe_expression(expression, target_frame)
 
         signing_sides = {side for side, hd in sides_config.items() if hd.get("shape") != "Start_Position"}
         bpy.context.preferences.edit.keyframe_new_interpolation_type = 'BEZIER'
@@ -88,70 +113,45 @@ def create_sequence(sentence):
         animate_head(head_action, current_frame, target_frame, move_end_frame, settle_frame)
 
         # --- MOVEMENT ---
-        is_movement      = False
-        protect_rotation = False
+        protect_rotation  = False
+        per_side_end_shape = {}
 
         for side, hd in sides_config.items():
             move = hd.get("move")
             if not move:
                 continue
-
-            move_type = move if isinstance(move, str) else move.get("type")
-
-            if move_type == "slide":
-                raw_dir   = move.get("direction", "left") if isinstance(move, dict) else "left"
-                direction = _get_mirror_direction(raw_dir) if (is_mirror and side == "left") else raw_dir
-                animate_slide(target_frame, hold_time, side=side, direction=direction)
-                is_movement = True
-
-            elif move_type == "small_slide":
-                raw_dir     = move.get("direction", "left") if isinstance(move, dict) else "left"
-                moves_count = move.get("moves", 2) if isinstance(move, dict) else 2
-                direction   = _get_mirror_direction(raw_dir) if (is_mirror and side == "left") else raw_dir
-                animate_small_slide(target_frame, hold_time, side=side, direction=direction, moves=moves_count)
-                is_movement = True
-
-            elif move_type == "checkmark":
-                animate_checkmark(target_frame, hold_time, side=side)
-                is_movement = True; protect_rotation = True
-
-            elif move_type == "halfcircle":
-                animate_halfcircle(target_frame, hold_time, side=side)
-                is_movement = True; protect_rotation = True
-
-            elif move_type == "s_shape":
-                animate_s(target_frame, hold_time, side=side)
-                is_movement = True; protect_rotation = True
-
-            elif move_type == "point_down":
-                animate_pointing_down(target_frame, hold_time, side=side)
-                is_movement = True; protect_rotation = True
-
-            elif move_type == "side_flip":
-                animate_side_flip(target_frame, hold_time, side=side)
-                is_movement = True; protect_rotation = True
+            pr, es = dispatch_move_or_list(move, side, hd, target_frame, hold_time, is_mirror)
+            protect_rotation |= pr
+            if es:
+                per_side_end_shape[side] = es
 
         # --- UNIFIED LOCKING ---
         bpy.context.preferences.edit.keyframe_new_interpolation_type = 'LINEAR'
         for frame in [move_end_frame, settle_frame]:
             for side, hd in sides_config.items():
-                loc_pose = hd["orientation"] if hd.get("shape") == "Start_Position" else hd["location"]
+                loc_pose  = hd["orientation"] if hd.get("shape") == "Start_Position" else hd["location"]
+                lock_shape = per_side_end_shape.get(side, hd["shape"])
                 lock_pose_at_frame(
-                    loc_pose, hd["orientation"], hd["shape"], frame,
+                    loc_pose, hd["orientation"], lock_shape, frame,
                     side=side,
-                    use_location=not is_movement,
+                    use_location=False,
                     apply_orientation=not protect_rotation
                 )
 
+        # Hold expression through the sign — prevents BEZIER from fading early
+        keyframe_expression(expression, settle_frame)
+
         current_frame = settle_frame + 2
+        prev_expression = expression
 
     # --- RETURN TO NEUTRAL ---
     bpy.context.preferences.edit.keyframe_new_interpolation_type = 'BEZIER'
     for side in signing_sides:
         load_pose("Hand_Relaxed", side=side, apply_arm=False, apply_fingers=True, keyframe_on_frame=current_frame + mid_transition)
 
-    load_pose("Start_Position", side="right", apply_arm=True, apply_fingers=True, keyframe_on_frame=current_frame + 6)
-    load_pose("Start_Position", side="left",  apply_arm=True, apply_fingers=True, keyframe_on_frame=current_frame + 6)
+    _apply_start_position("right", current_frame + 6)
+    _apply_start_position("left",  current_frame + 6)
+    keyframe_expression(None, current_frame + 6)
 
     fix_finger_interpolation()
     bpy.context.scene.frame_set(1)

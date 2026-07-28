@@ -1,6 +1,7 @@
 # ══════════════════════════════════════════════════════════════════════════════
 #  BAKE PIPELINE
 # ══════════════════════════════════════════════════════════════════════════════
+import time as _time
 
 def _animate_sign_for_baking(word, data, start_frame=1):
     """
@@ -24,6 +25,7 @@ def _animate_sign_for_baking(word, data, start_frame=1):
 
     hold_time   = data.get("duration", DEFAULT_HOLD)
     head_action = data.get("head")
+    expression  = data.get("expression")
     is_mirror   = data.get("left") == "mirror_right"
 
     sides_config = {}
@@ -33,10 +35,9 @@ def _animate_sign_for_baking(word, data, start_frame=1):
             sides_config[side] = hd
 
     # ── Frame 1: Start_Position for both sides ────────────────────────────────
-    load_pose("Start_Position", side="right",
-              apply_arm=True, apply_fingers=True, keyframe_on_frame=start_frame)
-    load_pose("Start_Position", side="left",
-              apply_arm=True, apply_fingers=True, keyframe_on_frame=start_frame)
+    _apply_start_position("right", start_frame)
+    _apply_start_position("left",  start_frame)
+    keyframe_expression(None, start_frame)
 
     sign_frame   = start_frame + ARM_TRANS
     move_end     = sign_frame  + hold_time
@@ -74,61 +75,40 @@ def _animate_sign_for_baking(word, data, start_frame=1):
         load_pose(hd["shape"], side=side,
                   apply_arm=False, apply_fingers=True,
                   keyframe_on_frame=sign_frame)
+    keyframe_expression(expression, sign_frame)
 
     # ── Head ──────────────────────────────────────────────────────────────────
     if head_action:
         animate_head(head_action, start_frame, sign_frame, move_end, settle_frame)
 
     # ── Movement ──────────────────────────────────────────────────────────────
-    is_movement      = False
-    protect_rotation = False
+    protect_rotation   = False
+    per_side_end_shape = {}
 
     for side, hd in sides_config.items():
         move = hd.get("move")
         if not move:
             continue
-        move_type = move if isinstance(move, str) else move.get("type")
-        is_dict   = isinstance(move, dict)
-
-        if move_type == "slide":
-            raw_dir   = move.get("direction", "left") if is_dict else "left"
-            direction = _get_mirror_direction(raw_dir) if (is_mirror and side == "left") else raw_dir
-            animate_slide(sign_frame, hold_time, side=side, direction=direction)
-            is_movement = True
-        elif move_type == "small_slide":
-            raw_dir     = move.get("direction", "left") if is_dict else "left"
-            moves_count = move.get("moves", 2)           if is_dict else 2
-            direction   = _get_mirror_direction(raw_dir) if (is_mirror and side == "left") else raw_dir
-            animate_small_slide(sign_frame, hold_time, side=side,
-                                direction=direction, moves=moves_count)
-            is_movement = True
-        elif move_type == "checkmark":
-            animate_checkmark(sign_frame, hold_time, side=side)
-            is_movement = True; protect_rotation = True
-        elif move_type == "halfcircle":
-            animate_halfcircle(sign_frame, hold_time, side=side)
-            is_movement = True; protect_rotation = True
-        elif move_type == "s_shape":
-            animate_s(sign_frame, hold_time, side=side)
-            is_movement = True; protect_rotation = True
-        elif move_type == "point_down":
-            animate_pointing_down(sign_frame, hold_time, side=side)
-            is_movement = True; protect_rotation = True
-        elif move_type == "side_flip":
-            animate_side_flip(sign_frame, hold_time, side=side)
-            is_movement = True; protect_rotation = True
+        pr, es = dispatch_move_or_list(move, side, hd, sign_frame, hold_time, is_mirror)
+        protect_rotation |= pr
+        if es:
+            per_side_end_shape[side] = es
 
     # ── Lock at move_end and settle ───────────────────────────────────────────
     bpy.context.preferences.edit.keyframe_new_interpolation_type = 'LINEAR'
     for frame in [move_end, settle_frame]:
         for side, hd in sides_config.items():
-            loc_pose = hd["orientation"] if hd.get("shape") == "Start_Position" else hd["location"]
+            loc_pose   = hd["orientation"] if hd.get("shape") == "Start_Position" else hd["location"]
+            lock_shape = per_side_end_shape.get(side, hd["shape"])
             lock_pose_at_frame(
-                loc_pose, hd["orientation"], hd["shape"], frame,
+                loc_pose, hd["orientation"], lock_shape, frame,
                 side=side,
-                use_location=not is_movement,
+                use_location=False,
                 apply_orientation=not protect_rotation
             )
+
+    # Hold expression through the sign — prevents BEZIER from fading early
+    keyframe_expression(expression, settle_frame)
 
     # ── mid_ret: Hand_Relaxed as finger waypoint out of the sign ─────────────
     bpy.context.preferences.edit.keyframe_new_interpolation_type = 'BEZIER'
@@ -137,10 +117,9 @@ def _animate_sign_for_baking(word, data, start_frame=1):
 
     # ── Return to Start_Position at clip end ──────────────────────────────────
     bpy.context.preferences.edit.keyframe_new_interpolation_type = 'BEZIER'
-    load_pose("Start_Position", side="right",
-              apply_arm=True, apply_fingers=True, keyframe_on_frame=return_frame)
-    load_pose("Start_Position", side="left",
-              apply_arm=True, apply_fingers=True, keyframe_on_frame=return_frame)
+    _apply_start_position("right", return_frame)
+    _apply_start_position("left",  return_frame)
+    keyframe_expression(None, return_frame)
 
     fix_finger_interpolation()
     return return_frame
@@ -171,23 +150,38 @@ def _remove_bone_constraints(armature):
 
 
 def _restore_bone_constraints(armature, saved):
+    bpy.ops.object.select_all(action='DESELECT')
+    armature.select_set(True)
+    bpy.context.view_layer.objects.active = armature
+    bpy.ops.object.mode_set(mode='POSE')
+
     for bone_name, con_type, con_name, props in saved:
         pbone = armature.pose.bones.get(bone_name)
         if not pbone:
             continue
         con = pbone.constraints.new(type=con_type)
         con.name = con_name
+        failed = []
         for key, val in props.items():
             try:
                 setattr(con, key, val)
-            except Exception:
-                pass
+                actual = getattr(con, key, '???')
+                if actual != val:
+                    failed.append(f"{key}: set={val!r} got={actual!r}")
+            except Exception as e:
+                failed.append(f"{key}: EXCEPTION {e}")
+
+    bpy.ops.object.mode_set(mode='OBJECT')
 
 
 def _animate_static_clip(pose_name, start_frame=1, hold_frames=6):
-    for side in ["right", "left"]:
-        load_pose(pose_name, side=side, keyframe_on_frame=start_frame)
-        load_pose(pose_name, side=side, keyframe_on_frame=start_frame + hold_frames)
+    for frame in [start_frame, start_frame + hold_frames]:
+        if pose_name == "Start_Position":
+            _apply_start_position("right", frame)
+            _apply_start_position("left",  frame)
+        else:
+            for side in ["right", "left"]:
+                load_pose(pose_name, side=side, keyframe_on_frame=frame)
     fix_finger_interpolation()
     return start_frame + hold_frames
 
@@ -228,7 +222,53 @@ def _iter_action_fcurves(action, slot=None):
                     pass
 
 
-def _bake_armature(armature, frame_start, frame_end, initial_prev_quat=None):
+def _snapshot_frame(action, slot, frame):
+    """Return {(data_path, array_index): value} for all F-curve keypoints at the given frame."""
+    snap = {}
+    for fc in _iter_action_fcurves(action, slot):
+        for kp in fc.keyframe_points:
+            if abs(kp.co.x - frame) < 0.5:
+                snap[(fc.data_path, fc.array_index)] = kp.co.y
+                break
+    return snap
+
+
+def _debug_arm_frame1(action, slot, label):
+    """Print frame-1 rotation_quaternion for left and right lower arm bones."""
+    bones = ['J_Bip_R_LowerArm', 'J_Bip_L_LowerArm']
+    for bn in bones:
+        vals = {}
+        for fc in _iter_action_fcurves(action, slot):
+            if f'"{bn}"' not in fc.data_path:
+                continue
+            if 'rotation_quaternion' not in fc.data_path:
+                continue
+            for kp in fc.keyframe_points:
+                if abs(kp.co.x - 1) < 0.5:
+                    vals[fc.array_index] = kp.co.y
+                    break
+        if vals:
+            q = [round(vals.get(i, 0), 5) for i in range(4)]
+            print(f"[Debug][ArmF1] {label}  {bn}: {q}")
+
+
+def _pin_frames(action, slot, snapshot, frames):
+    """Overwrite keypoint values at the given frames with values from snapshot."""
+    for fc in _iter_action_fcurves(action, slot):
+        key = (fc.data_path, fc.array_index)
+        if key not in snapshot:
+            continue
+        val = snapshot[key]
+        changed = False
+        for kp in fc.keyframe_points:
+            if any(abs(kp.co.x - f) < 0.5 for f in frames):
+                kp.co.y = val
+                changed = True
+        if changed:
+            fc.update()
+
+
+def _bake_armature(armature, frame_start, frame_end, initial_prev_quat=None, exclude_prefixes=None, initial_bone_quats=None):
     from mathutils import Quaternion, Euler
 
     scene  = bpy.context.scene
@@ -251,15 +291,63 @@ def _bake_armature(armature, frame_start, frame_end, initial_prev_quat=None):
     for rb in armature.data.bones:
         if rb.parent is None:
             _add(rb)
+    if exclude_prefixes:
+        bone_order = [bn for bn in bone_order
+                      if not any(bn.startswith(p) for p in exclude_prefixes)]
 
     # ── 3. PHASE 1: step through every frame, read evaluated matrices ─────────
+    # Seed IK to the correct local minimum BEFORE the mode_set(mode='POSE') that
+    # starts phase 1.  That mode switch triggers a depsgraph evaluation; if IK's
+    # internal state is at the wrong local minimum at that moment (because NLA was
+    # just muted and the last evaluation was from rest pose), every frame in the
+    # bake loop records the wrong elbow position and the GLB is wrong.
+    # Fix: remove all constraints → set bone channels from pre-VTA (blend-file)
+    # rotations → restore constraints.  _restore_bone_constraints ends in OBJECT
+    # mode and triggers an evaluation with IK active from our seed values, putting
+    # IK's internal state at the correct local minimum before phase 1 begins.
+    if initial_bone_quats:
+        # Remove ONLY IK and COPY_ROTATION — the constraints that have the local-minimum
+        # problem.  Removing ALL constraints (via _remove_bone_constraints) risks breaking
+        # DAMPED_TRACK on finger bones if any property fails to restore, which causes
+        # finger bones to stop tracking their empties → stretched fingers in the baked GLB.
+        _saved_ik_seed = []
+        for pbone in armature.pose.bones:
+            for con in list(pbone.constraints):
+                if con.type not in ('IK', 'COPY_ROTATION'):
+                    continue
+                props = {}
+                for prop in con.bl_rna.properties:
+                    if prop.identifier in ('rna_type', 'type', 'name') or prop.is_readonly:
+                        continue
+                    try:
+                        props[prop.identifier] = getattr(con, prop.identifier)
+                    except Exception:
+                        pass
+                _saved_ik_seed.append((pbone.name, con.type, con.name, props))
+                pbone.constraints.remove(con)
+        bpy.ops.object.select_all(action='DESELECT')
+        armature.select_set(True)
+        bpy.context.view_layer.objects.active = armature
+        bpy.ops.object.mode_set(mode='POSE')
+        # Only seed IK-chain bones (the ones whose IK/COPY_ROTATION was removed).
+        # Finger bones use DAMPED_TRACK: writing a pre-VTA seed to them changes the
+        # roll orientation DAMPED_TRACK picks, which rotates finger bones wrongly in
+        # sign frames where the finger empties are far from their rest positions.
+        _ik_seeded_bones = {bn for bn, _, _, _ in _saved_ik_seed}
+        for pbone in armature.pose.bones:
+            if pbone.name in initial_bone_quats and pbone.name in _ik_seeded_bones:
+                pbone.rotation_quaternion = initial_bone_quats[pbone.name].copy()
+        bpy.ops.object.mode_set(mode='OBJECT')
+        _restore_bone_constraints(armature, _saved_ik_seed)
+
     bpy.ops.object.select_all(action='DESELECT')
     armature.select_set(True)
     bpy.context.view_layer.objects.active = armature
     bpy.ops.object.mode_set(mode='POSE')
 
     bpy.ops.pose.select_all(action='SELECT')
-    bpy.ops.pose.transforms_clear()
+    if not initial_bone_quats:
+        bpy.ops.pose.transforms_clear()
     bpy.context.view_layer.update()
 
     original_rot_modes = {}
@@ -319,6 +407,12 @@ def _bake_armature(armature, frame_start, frame_end, initial_prev_quat=None):
 
             loc, rot_q, sc = mb.decompose()
 
+            # No constraint in this rig modifies bone scale (IK/COPY_ROTATION/DAMPED_TRACK
+            # are all rotation-only).  visual_transform_apply() can leave tiny non-unit scale
+            # in channels via floating-point error; baking that scale makes bones appear
+            # elongated in the viewer.  Force unit scale on every bone.
+            sc = (1.0, 1.0, 1.0)
+
             # Quaternion continuity: if dot product with previous frame is negative,
             # negate so Three.js always SLERPs the short way (<180°).
             if bn in prev_quat:
@@ -327,7 +421,7 @@ def _bake_armature(armature, frame_start, frame_end, initial_prev_quat=None):
             prev_quat[bn] = rot_q.copy()
 
             rot_out = tuple(rot_q)
-            f_basis[bn] = (tuple(loc), rot_out, tuple(sc), 'QUATERNION')
+            f_basis[bn] = (tuple(loc), rot_out, sc, 'QUATERNION')
         frames_basis[frame] = f_basis
 
 
@@ -445,9 +539,38 @@ def _push_to_nla(armature, action, bake_slot=None):
             except Exception as e:
                 print(f"[Bake]   Strip slot note: {e}")
 
-    frames = f"{action.frame_range[0]:.0f}–{action.frame_range[1]:.0f}"
-    print(f"[Bake]   → NLA  '{action.name}'  ({frames} frames)")
     return strip
+
+
+def _push_expression_to_nla(clip_name):
+    """Push the current face shape key action to an NLA track named clip_name."""
+    face_obj = bpy.data.objects.get(FACE_MESH_NAME)
+    if not face_obj or not face_obj.data.shape_keys:
+        return
+    sk = face_obj.data.shape_keys
+    if not sk.animation_data or not sk.animation_data.action:
+        return
+    sk_action = sk.animation_data.action
+    # Check peak expression values in the action's fcurves (not kb.value, which is at
+    # end-frame / all-zero by the time this runs).
+    expr_key_names = _all_expression_key_names()
+    peak = {}
+    for fc in _iter_action_fcurves(sk_action):
+        # fcurve data_path looks like: 'key_blocks["Fcl_ALL_Fun"].value'
+        for key_name in expr_key_names:
+            if f'"{key_name}"' in fc.data_path:
+                max_val = max((kp.co[1] for kp in fc.keyframe_points), default=0.0)
+                if max_val > 0.001:
+                    peak[key_name] = round(max_val, 3)
+    old = bpy.data.actions.get(f"expr_{clip_name}")
+    if old:
+        bpy.data.actions.remove(old)
+    sk_action.name = f"expr_{clip_name}"
+    sk.animation_data.action = None
+    track       = sk.animation_data.nla_tracks.new()
+    track.name  = clip_name
+    strip       = track.strips.new(clip_name, int(sk_action.frame_range[0]), sk_action)
+    strip.name  = clip_name
 
 
 def bake_all_signs_to_glb(
@@ -462,9 +585,77 @@ def bake_all_signs_to_glb(
     json_path = os.path.join(blend_dir, "signs.json")
     with open(json_path, 'r', encoding='utf-8') as f:
         SIGN_LIBRARY = json.load(f)
-        print(f"SIGN_LIBRARY loaded.")
+
+    setup_arm_pole_targets()
 
     armature = _resolve_armature(armature_name)
+
+    # Capture the correct IK state BEFORE clearing NLA tracks.
+    # After clearing NLA tracks the bones are driven only by IK constraints, which
+    # can converge to a wrong local minimum on this rig's dual-IK setup.  The saved
+    # .blend already has the bones in the correct position, so we snapshot here while
+    # the evaluated scene is still correct, then use this as the IK warm-start for
+    # every _bake_armature call.
+    original_rot_modes = {}
+    bpy.ops.object.select_all(action='DESELECT')
+    armature.select_set(True)
+    bpy.context.view_layer.objects.active = armature
+    bpy.ops.object.mode_set(mode='POSE')
+    for pbone in armature.pose.bones:
+        original_rot_modes[pbone.name] = pbone.rotation_mode
+        pbone.rotation_mode = 'QUATERNION'
+    # Capture pre-VTA bone rotations — these are the blend file's saved pre-constraint
+    # channels.  IK converges to the correct local minimum when starting from these
+    # values (same as fresh file open), so we use them to re-seed IK post-bake.
+    _pre_vta_bone_quats = {pbone.name: pbone.rotation_quaternion.copy()
+                           for pbone in armature.pose.bones}
+    bpy.ops.pose.select_all(action='SELECT')
+    bpy.context.view_layer.update()
+    bpy.ops.pose.visual_transform_apply()
+    _ik_warm_start = {pbone.name: pbone.rotation_quaternion.copy()
+                      for pbone in armature.pose.bones}
+    bpy.ops.object.mode_set(mode='OBJECT')
+
+    # Snapshot IK-related empty transforms so the post-bake cleanup can restore
+    # the exact positions/rotations from the saved file, rather than relying on
+    # load_pose() which may set slightly different rotations (causing COPY_ROTATION
+    # on LowerArm to land IK at a different evaluated position).
+    _ik_empty_names = set()
+    for pbone in armature.pose.bones:
+        for con in pbone.constraints:
+            if con.type == 'IK':
+                if con.target:      _ik_empty_names.add(con.target.name)
+                if con.pole_target: _ik_empty_names.add(con.pole_target.name)
+            elif con.type == 'COPY_ROTATION':
+                if con.target:      _ik_empty_names.add(con.target.name)
+    # also include arm/hand/shoulder empties and all finger empties.
+    # Finger empties are not IK targets but are referenced by DAMPED_TRACK on finger
+    # bones.  reset_animation() clears their keyframes but not their physical positions,
+    # so without snapshotting them the viewport shows the last baked sign's finger pose.
+    for _n in ([RIGHTHAND_EMPTY, RIGHTARM_EMPTY, LEFTHAND_EMPTY, LEFTARM_EMPTY]
+               + RIGHT_FINGERS + LEFT_FINGERS):
+        _ik_empty_names.add(_n)
+    _empty_snapshot = {}
+    for _n in _ik_empty_names:
+        _obj = bpy.data.objects.get(_n)
+        if _obj:
+            _empty_snapshot[_n] = {
+                'location':       _obj.location.copy(),
+                'rotation_euler': _obj.rotation_euler.copy(),
+                'rotation_mode':  _obj.rotation_mode,
+            }
+
+    # ── Pre-bake snapshot ────────────────────────────────────────────────────
+    bpy.context.view_layer.update()
+    _pre_depsgraph = bpy.context.evaluated_depsgraph_get()
+    _pre_eval      = armature.evaluated_get(_pre_depsgraph)
+    # Capture full evaluated bone matrices (in armature-local space) for every bone.
+    # These are used in post-bake cleanup: we remove IK, set bones to these matrices
+    # directly, then restore IK.  Since the bones start at the correct IK solution,
+    # the solver converges to the right local minimum instead of rest-pose minimum.
+    _pre_bone_matrices = {pbone.name: _pre_eval.pose.bones[pbone.name].matrix.copy()
+                          for pbone in armature.pose.bones
+                          if pbone.name in _pre_eval.pose.bones}
 
     # Clear all NLA tracks from previous bakes so the GLB only contains fresh clips.
     # Without this, Blender renames new actions to "l.001", "i.001" etc. (because
@@ -474,19 +665,15 @@ def bake_all_signs_to_glb(
         stale = list(armature.animation_data.nla_tracks)
         for t in stale:
             armature.animation_data.nla_tracks.remove(t)
-        if stale:
-            print(f"[Bake] Cleared {len(stale)} stale NLA tracks.")
 
-    original_rot_modes = {}
-    bpy.ops.object.select_all(action='DESELECT')
-    armature.select_set(True)
-    bpy.context.view_layer.objects.active = armature
-    bpy.ops.object.mode_set(mode='POSE')
-    for pbone in armature.pose.bones:
-        original_rot_modes[pbone.name] = pbone.rotation_mode
-        pbone.rotation_mode = 'QUATERNION'
-    bpy.ops.object.mode_set(mode='OBJECT')
-    print(f"[Bake] Set {len(original_rot_modes)} bones to QUATERNION rotation mode.")
+    face_obj = bpy.data.objects.get(FACE_MESH_NAME)
+    if face_obj and face_obj.data.shape_keys:
+        sk = face_obj.data.shape_keys
+        if not sk.animation_data:
+            sk.animation_data_create()
+        stale_sk = list(sk.animation_data.nla_tracks)
+        for t in stale_sk:
+            sk.animation_data.nla_tracks.remove(t)
 
     STATIC_CLIPS = {
         "Start_Position": "Start_Position",
@@ -504,94 +691,211 @@ def bake_all_signs_to_glb(
     bar   = "═" * 60
     print(f"\n{bar}")
     print(f"[Bake] {total} clips  ({len(signs_to_bake)} signs  +  {len(STATIC_CLIPS)} static)")
-    print(f"[Bake] Armature : '{armature.name}'")
-    print(f"[Bake] Output   : {os.path.join(blend_dir, output_glb)}")
-    print(f"{bar}\n")
 
-    baked = []
+    baked        = []
     global_ref_quats = None
+    _t_start     = _time.time()
+    # Accumulate (clip_name, action, slot) here; push all to NLA together after
+    # every bake is done.  Pushing to NLA immediately adds muted NLA tracks that
+    # slightly bleed through the depsgraph during subsequent bakes (even when
+    # muted), causing the IK solver to converge to a slightly different elbow
+    # position for sign clips vs Start_Position → visible snap at clip boundaries.
+    # By deferring NLA push until all baking is finished every bake runs in the
+    # same clean scene state → identical IK convergence → no snap.
+    _nla_queue   = []   # (clip_name, action, slot)
 
     # ── STEP 1: Static clips ──────────────────────────────────────────────────
     for clip_name, pose_name in STATIC_CLIPS.items():
-        print(f"[Bake] Static  '{clip_name}'")
+        _t0 = _time.time()
         reset_animation()
 
         end_frame = _animate_static_clip(pose_name, start_frame=1, hold_frames=6)
-        action, slot, ref_quats = _bake_armature(armature, 1, end_frame, global_ref_quats)
+        action, slot, ref_quats = _bake_armature(armature, 1, end_frame, global_ref_quats,
+                                                  exclude_prefixes=BAKE_EXCLUDE_PREFIXES,
+                                                  initial_bone_quats=_pre_vta_bone_quats)
 
         if action:
             old = bpy.data.actions.get(clip_name)
             if old:
                 bpy.data.actions.remove(old)
             action.name = clip_name
-            _push_to_nla(armature, action, slot)
+            _nla_queue.append((clip_name, action, slot))
             baked.append(clip_name)
             if global_ref_quats is None:
                 global_ref_quats = ref_quats
-                print(f"[Bake]   Global quaternion reference set from '{clip_name}'")
+                print(f"[Bake] Static  '{clip_name}'  ({_time.time()-_t0:.2f}s)  — quaternion reference set")
+            else:
+                print(f"[Bake] Static  '{clip_name}'  ({_time.time()-_t0:.2f}s)")
         else:
-            print(f"[Bake]   ✗  No action for '{clip_name}'")
+            print(f"[Bake] Static  '{clip_name}'  ✗  No action")
 
     # ── STEP 2: Sign clips ────────────────────────────────────────────────────
     n = len(signs_to_bake)
+    w = len(str(n))
     for i, word in enumerate(signs_to_bake, 1):
+        _t0 = _time.time()
         data = SIGN_LIBRARY[word]
-        print(f"\n[Bake] [{i:>3}/{n}]  '{word}'")
         reset_animation()
 
         end_frame = _animate_sign_for_baking(word, data, start_frame=1)
-        action, slot, _ = _bake_armature(armature, 1, end_frame, global_ref_quats)
+        action, slot, _ = _bake_armature(armature, 1, end_frame, global_ref_quats,
+                                          exclude_prefixes=BAKE_EXCLUDE_PREFIXES,
+                                          initial_bone_quats=_pre_vta_bone_quats)
 
         if action:
             old = bpy.data.actions.get(word)
             if old:
                 bpy.data.actions.remove(old)
             action.name = word
-            _push_to_nla(armature, action, slot)
+            _nla_queue.append((word, action, slot))
             baked.append(word)
+            print(f"[Bake] [{i:>{w}}/{n}]  '{word}'  →  {end_frame} frames  ({_time.time()-_t0:.2f}s)")
         else:
-            print(f"[Bake]   ✗  No action for '{word}'")
+            print(f"[Bake] [{i:>{w}}/{n}]  '{word}'  ✗  no action")
+
+    # ── STEP 2b: Push all armature actions to NLA now that all baking is done ─
+    for _clip_name, _action, _slot in _nla_queue:
+        _push_to_nla(armature, _action, _slot)
 
     # ── STEP 3: Export GLB ────────────────────────────────────────────────────
     glb_path = os.path.join(blend_dir, output_glb)
-    print(f"\n{bar}")
-    print(f"[Bake] Exporting {len(baked)} clips → {glb_path}")
-    print(f"{bar}")
+
+    # Zero out emission on all materials — VRoid MToon → PBR conversion leaves emission
+    # strength set, making the skin appear self-illuminated / washed out in Three.js.
+    emission_backup = {}
+    import sys as _sys, io as _io, warnings as _warnings
+    with _warnings.catch_warnings():
+        _warnings.filterwarnings('ignore', category=DeprecationWarning)
+        for mat in bpy.data.materials:
+            if not mat.use_nodes:
+                continue
+            for node in mat.node_tree.nodes:
+                if node.type == 'BSDF_PRINCIPLED':
+                    em_in = node.inputs.get('Emission') or node.inputs.get('Emission Color')
+                    st_in = node.inputs.get('Emission Strength')
+                    emission_backup[mat.name] = {
+                        'color':    tuple(em_in.default_value)  if em_in else None,
+                        'strength': st_in.default_value         if st_in else None,
+                        'node':     node.name,
+                    }
+                    if em_in:   em_in.default_value = (0, 0, 0, 1)
+                    if st_in:   st_in.default_value = 0.0
 
     armature.animation_data.action = None
+
+    # Collect every action linked to our baked NLA strips.
+    _our_actions = set()
+    for t in armature.animation_data.nla_tracks:
+        for s in t.strips:
+            if s.action:
+                _our_actions.add(s.action.name)
+    _fobj = bpy.data.objects.get(FACE_MESH_NAME)
+    if _fobj and _fobj.data.shape_keys and _fobj.data.shape_keys.animation_data:
+        for t in _fobj.data.shape_keys.animation_data.nla_tracks:
+            for s in t.strips:
+                if s.action:
+                    _our_actions.add(s.action.name)
+    # Clear NLA tracks from any other armature objects (e.g. hidden Mixamo rig).
+    for obj in bpy.data.objects:
+        if obj.type == 'ARMATURE' and obj != armature and obj.animation_data:
+            for t in list(obj.animation_data.nla_tracks):
+                obj.animation_data.nla_tracks.remove(t)
+    # Remove all actions not linked to our NLA strips — this suppresses both
+    # "Animation target pose.bones[mixamorig:*] not found" and
+    # "Multiple rotation mode detected" GLTF exporter warnings.
+    _purged = 0
+    for _action in list(bpy.data.actions):
+        if _action.name not in _our_actions:
+            bpy.data.actions.remove(_action)
+            _purged += 1
     saved_constraints = _remove_bone_constraints(armature)
-    print(f"[Bake] Removed {len(saved_constraints)} bone constraints for export.")
 
+    _t_bake_end = _time.time()
+    _t_export_start = _time.time()
+    print(f"[Bake] Exporting '{output_glb}' ({len(baked)} clips)... (this might take a while)")
+    _saved_stdout = _sys.stdout
     try:
-        bpy.ops.export_scene.gltf(
-            filepath             = glb_path,
-            export_format        = 'GLB',
-            export_animations    = True,
-            export_nla_strips    = True,
-            export_current_frame = False,
-            export_skins         = True,
-            export_morph         = True,
-            export_apply         = False,
-        )
+        _sys.stdout = _io.StringIO()
+        with _warnings.catch_warnings():
+            _warnings.filterwarnings('ignore', category=DeprecationWarning)
+            bpy.ops.export_scene.gltf(
+                filepath             = glb_path,
+                export_format        = 'GLB',
+                export_animations    = True,
+                export_nla_strips    = True,
+                export_current_frame = False,
+                export_skins         = True,
+                export_morph         = True,
+                export_apply         = False,
+            )
     finally:
+        _sys.stdout = _saved_stdout
         _restore_bone_constraints(armature, saved_constraints)
-        print(f"[Bake] Restored {len(saved_constraints)} bone constraints.")
+        with _warnings.catch_warnings():
+            _warnings.filterwarnings('ignore', category=DeprecationWarning)
+            for mat in bpy.data.materials:
+                if not mat.use_nodes or mat.name not in emission_backup:
+                    continue
+                bk   = emission_backup[mat.name]
+                node = mat.node_tree.nodes.get(bk['node'])
+                if not node:
+                    continue
+                em_in = node.inputs.get('Emission') or node.inputs.get('Emission Color')
+                st_in = node.inputs.get('Emission Strength')
+                if em_in and bk['color']:   em_in.default_value = bk['color']
+                if st_in and bk['strength'] is not None: st_in.default_value = bk['strength']
 
+    bpy.context.scene.frame_set(1)
+    reset_animation()
+    # Restore arm and finger empties to Start_Position rather than from the snapshot.
+    # The snapshot captures blend-file-saved positions, which may be from any frame the
+    # user last had open (not necessarily Start_Position). Using load_pose is deterministic.
+    _apply_start_position("right", None)
+    _apply_start_position("left",  None)
+    # Mute all NLA tracks so the viewport is driven purely by IK.
+    if armature.animation_data:
+        for track in armature.animation_data.nla_tracks:
+            track.mute = True
+
+    # Re-seed IK to the correct local minimum for the viewport (same approach as the
+    # bake seeding).  Only remove IK and COPY_ROTATION — NOT DAMPED_TRACK on finger
+    # bones.  Removing all constraints via _remove_bone_constraints and restoring them
+    # can fail to perfectly restore DAMPED_TRACK, leaving fingers broken in the viewport.
+    _saved_post = []
+    for pbone in armature.pose.bones:
+        for con in list(pbone.constraints):
+            if con.type not in ('IK', 'COPY_ROTATION'):
+                continue
+            props = {}
+            for prop in con.bl_rna.properties:
+                if prop.identifier in ('rna_type', 'type', 'name') or prop.is_readonly:
+                    continue
+                try:
+                    props[prop.identifier] = getattr(con, prop.identifier)
+                except Exception:
+                    pass
+            _saved_post.append((pbone.name, con.type, con.name, props))
+            pbone.constraints.remove(con)
     bpy.ops.object.select_all(action='DESELECT')
     armature.select_set(True)
     bpy.context.view_layer.objects.active = armature
     bpy.ops.object.mode_set(mode='POSE')
+    _post_seeded_bones = {bn for bn, _, _, _ in _saved_post}
     for pbone in armature.pose.bones:
+        if pbone.name in _pre_vta_bone_quats and pbone.name in _post_seeded_bones:
+            pbone.rotation_quaternion = _pre_vta_bone_quats[pbone.name]
         if pbone.name in original_rot_modes:
             pbone.rotation_mode = original_rot_modes[pbone.name]
+        pbone.scale = (1.0, 1.0, 1.0)
     bpy.ops.object.mode_set(mode='OBJECT')
-    print(f"[Bake] Restored original rotation modes.")
+    _restore_bone_constraints(armature, _saved_post)
+    bpy.context.view_layer.update()
 
-    bpy.context.scene.frame_set(1)
-    reset_animation()
-
-    print(f"\n[Bake] ✓  Done!  {len(baked)} clips baked.")
-    print(f"[Bake]    {baked}\n")
+    _t_end = _time.time()
+    print(f"[Bake] ✓  Done!  {len(baked)} clips baked.")
+    print(f"[Bake]    Bake: {_t_bake_end - _t_start:.1f}s   Export: {_t_end - _t_export_start:.1f}s   Total: {_t_end - _t_start:.1f}s")
+    print(f"[Bake]    {baked}")
+    print(f"{bar}\n")
     return baked
 
 

@@ -16,9 +16,8 @@ SIGN_LIBRARY = {}
 HEAD_EMPTY = "Empty_Head"
 
 # RIGHT SIDE
-RIGHTHAND_EMPTY    = "Empty_RightHand"
-RIGHTFOREARM_EMPTY = "Empty_RightForearm"
-RIGHTARM_EMPTY     = "Empty_RightArm"
+RIGHTHAND_EMPTY = "Empty_RightHand"
+RIGHTARM_EMPTY  = "Empty_RightArm"
 RIGHT_FINGERS = [
     "Empty_RightHandThumb1", "Empty_RightHandThumb2", "Empty_RightHandThumb3",
     "Empty_RightHandIndex1", "Empty_RightHandIndex2", "Empty_RightHandIndex3",
@@ -28,9 +27,8 @@ RIGHT_FINGERS = [
 ]
 
 # LEFT SIDE
-LEFTHAND_EMPTY    = "Empty_LeftHand"
-LEFTFOREARM_EMPTY = "Empty_LeftForearm"
-LEFTARM_EMPTY     = "Empty_LeftArm"
+LEFTHAND_EMPTY = "Empty_LeftHand"
+LEFTARM_EMPTY  = "Empty_LeftArm"
 LEFT_FINGERS = [
     "Empty_LeftHandThumb1", "Empty_LeftHandThumb2", "Empty_LeftHandThumb3",
     "Empty_LeftHandIndex1", "Empty_LeftHandIndex2", "Empty_LeftHandIndex3",
@@ -40,3 +38,30 @@ LEFT_FINGERS = [
 ]
 
 FINGER_EMPTIES = RIGHT_FINGERS + LEFT_FINGERS
+
+FACE_MESH_NAME = "Face"
+
+# IK pole target positions and angles (used by setup_arm_pole_targets)
+POLE_R_LOC   = (0.55, 0.4, 0.8)
+POLE_L_LOC   = (-0.55, 0.4, 0.8)
+POLE_R_ANGLE = 150   # degrees
+POLE_L_ANGLE = 40    # degrees, changed from 45
+
+# Bone name prefixes to skip during bake (physics/spring bones — no constraints, viewer ignores them)
+BAKE_EXCLUDE_PREFIXES = ["J_Sec_"]
+
+# Bake frame constants — must match ARM_TRANS_FRAMES, ARM_RET_FRAMES, CLIP_FPS in viewer.html
+ARM_TRANS_FRAMES = 8
+ARM_RET_FRAMES   = 6
+CLIP_FPS         = 24
+
+EXPRESSION_MAP = {
+    "neutral":     "Fcl_ALL_Neutral",
+    "happy":       "Fcl_ALL_Joy",
+    "angry":       "Fcl_ALL_Angry",
+    "sad":         "Fcl_ALL_Sorrow",
+    "surprised":   "Fcl_ALL_Surprised",
+    "smiling":     "Fcl_ALL_Fun",
+    "questioning": {"Fcl_BRW_Joy": 0.8},
+    "concerned":   {"Fcl_BRW_Sorrow": 0.8},
+}

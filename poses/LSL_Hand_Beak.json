@@ -1,0 +1,109 @@
+{
+    "fingers": {
+        "Empty_RightHandThumb1": {
+            "location": [
+                -0.116,
+                -0.276,
+                1.44
+            ]
+        },
+        "Empty_RightHandThumb2": {
+            "location": [
+                -0.128,
+                -0.265,
+                1.458
+            ]
+        },
+        "Empty_RightHandThumb3": {
+            "location": [
+                -0.146,
+                -0.251,
+                1.469
+            ]
+        },
+        "Empty_RightHandIndex1": {
+            "location": [
+                -0.106,
+                -0.255,
+                1.474
+            ]
+        },
+        "Empty_RightHandIndex2": {
+            "location": [
+                -0.124,
+                -0.252,
+                1.473
+            ]
+        },
+        "Empty_RightHandIndex3": {
+            "location": [
+                -0.144,
+                -0.249,
+                1.469
+            ]
+        },
+        "Empty_RightHandMiddle1": {
+            "location": [
+                -0.107,
+                -0.239,
+                1.475
+            ]
+        },
+        "Empty_RightHandMiddle2": {
+            "location": [
+                -0.13,
+                -0.238,
+                1.471
+            ]
+        },
+        "Empty_RightHandMiddle3": {
+            "location": [
+                -0.151,
+                -0.238,
+                1.47
+            ]
+        },
+        "Empty_RightHandRing1": {
+            "location": [
+                -0.106,
+                -0.224,
+                1.473
+            ]
+        },
+        "Empty_RightHandRing2": {
+            "location": [
+                -0.125,
+                -0.226,
+                1.47
+            ]
+        },
+        "Empty_RightHandRing3": {
+            "location": [
+                -0.143,
+                -0.227,
+                1.468
+            ]
+        },
+        "Empty_RightHandPinky1": {
+            "location": [
+                -0.103,
+                -0.21,
+                1.468
+            ]
+        },
+        "Empty_RightHandPinky2": {
+            "location": [
+                -0.121,
+                -0.214,
+                1.467
+            ]
+        },
+        "Empty_RightHandPinky3": {
+            "location": [
+                -0.135,
+                -0.216,
+                1.465
+            ]
+        }
+    }
+}
