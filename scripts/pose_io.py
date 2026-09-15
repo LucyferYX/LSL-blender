@@ -50,6 +50,8 @@ def load_pose(pose_name, side="right", apply_arm=True, apply_fingers=True, keyfr
                     has_rotation = "rotation" in data[json_key]
                     w_loc = Vector(data[json_key].get("location", [0.0, 0.0, 0.0]))
                     w_rot = [math.radians(v) for v in data[json_key].get("rotation", [math.degrees(v) for v in obj.rotation_euler])]
+                    if json_key == "arm":
+                        w_rot[2] += math.radians(ARM_ROT_Z_CORRECTION)
                     if side == "left":
                         w_loc.x  = -w_loc.x
                         w_rot[1] = -w_rot[1]
@@ -178,6 +180,8 @@ def save_pose(pose_name, include_arm=True, include_fingers=True, side="right"):
                     loc[0] = -loc[0]
                     rot[1] = -rot[1]
                     rot[2] = -rot[2]
+                if key == "arm":
+                    rot[2] -= math.radians(ARM_ROT_Z_CORRECTION)
                 data[key] = {
                     "name": name,
                     "location": [round(v, 3) for v in loc],
@@ -260,6 +264,8 @@ def save_orientation_pose(pose_name, side="right"):
             if side == "left":
                 rot[1] = -rot[1]
                 rot[2] = -rot[2]
+            if key == "arm":
+                rot[2] -= math.radians(ARM_ROT_Z_CORRECTION)
             data[key] = {"rotation": [round(math.degrees(v), 3) for v in rot]}
     filename = f"LSL_Orientation_{pose_name}.json"
     path = bpy.path.abspath(f"//{POSES_DIR}/{filename}")
@@ -348,8 +354,11 @@ def _mirror_loc_x(delta_x, side):
 def _resolve_hand_data(data, side):
     """Returns the hand config dict for a given side, resolving mirror_right."""
     hand_data = data.get(side)
-    if hand_data == "mirror_right" or (side == "left" and hand_data == "mirror_right"):
+    if hand_data == "mirror_right":
         hand_data = data.get("right")
+    elif isinstance(hand_data, dict) and hand_data.get("mirror_right"):
+        overrides = {k: v for k, v in hand_data.items() if k != "mirror_right"}
+        hand_data = {**data.get("right", {}), **overrides}
     return hand_data  # None means this side is inactive for this sign
 
 def _get_mirror_direction(direction):
@@ -404,23 +413,38 @@ def keyframe_expression(expression_name, frame):
 
 
 def reset_animation():
-    all_empties = [HEAD_EMPTY, RIGHTHAND_EMPTY, RIGHTARM_EMPTY,
+    all_empties = [HEAD_EMPTY, CHEST_EMPTY, LEFTEYE_EMPTY, RIGHTEYE_EMPTY,
+                   RIGHTSHOULDER_EMPTY, LEFTSHOULDER_EMPTY,
+                   RIGHTHAND_EMPTY, RIGHTARM_EMPTY,
                    LEFTHAND_EMPTY, LEFTARM_EMPTY] + RIGHT_FINGERS + LEFT_FINGERS
     for name in all_empties:
         obj = bpy.data.objects.get(name)
         if obj and obj.animation_data:
+            old_action = obj.animation_data.action
             obj.animation_data_clear()
+            if old_action and old_action.users == 0:
+                bpy.data.actions.remove(old_action)
     head = bpy.data.objects.get(HEAD_EMPTY)
     if head:
         head.location = (0, 0.02, 1.8)
         head.rotation_euler = (math.radians(90), 0, 0)
+    chest = bpy.data.objects.get(CHEST_EMPTY)
+    if chest:
+        chest.rotation_euler = (0.0, 0.0, 0.0)
+    for _eye_name in (LEFTEYE_EMPTY, RIGHTEYE_EMPTY):
+        _eye = bpy.data.objects.get(_eye_name)
+        if _eye:
+            _eye.rotation_euler = (0.0, 0.0, 0.0)
     face_obj = bpy.data.objects.get(FACE_MESH_NAME)
     if face_obj and face_obj.data.shape_keys:
         sk = face_obj.data.shape_keys
         if sk.animation_data:
             # Only clear the active action — NLA tracks hold already-baked clips and
             # must NOT be destroyed here (animation_data_clear would wipe them).
+            old_sk_action = sk.animation_data.action
             sk.animation_data.action = None
+            if old_sk_action and old_sk_action.users == 0:
+                bpy.data.actions.remove(old_sk_action)
         # Reset all tracked shape key values to 0 (neutral face).
         for key_name in _all_expression_key_names():
             kb = sk.key_blocks.get(key_name) if sk.key_blocks else None

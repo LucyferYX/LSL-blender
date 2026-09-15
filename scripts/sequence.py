@@ -19,6 +19,24 @@ def _apply_start_position(side, frame):
         load_pose(shape, side=side, apply_arm=False, apply_fingers=True, keyframe_on_frame=frame)
 
 
+def _apply_arm_offset(hd, side, frame):
+    """Apply arm_offset [x, y, z] degrees delta from signs.json to the arm empty, then re-keyframe it."""
+    offset = hd.get("arm_offset")
+    if not offset:
+        return
+    dx, dy, dz = math.radians(offset[0]), math.radians(offset[1]), math.radians(offset[2] if len(offset) > 2 else 0)
+    if side == "left":
+        dy, dz = -dy, -dz
+    arm_name = LEFTARM_EMPTY if side == "left" else RIGHTARM_EMPTY
+    obj = bpy.data.objects.get(arm_name)
+    if not obj:
+        return
+    obj.rotation_euler.x += dx
+    obj.rotation_euler.y += dy
+    obj.rotation_euler.z += dz
+    obj.keyframe_insert(data_path="rotation_euler", frame=frame)
+
+
 def lock_pose_at_frame(location, orientation, shape, frame, side="right", use_location=True, apply_orientation=True):
     hand_name, arm_name, finger_list = get_rig_info(side)
 
@@ -69,8 +87,10 @@ def create_sequence(sentence):
 
         hold_time   = data.get("duration", default_hold_time)
         head_action = data.get("head")
+        chest_data  = data.get("chest")
         expression  = data.get("expression")
-        is_mirror   = data.get("left") == "mirror_right"
+        _left_val   = data.get("left")
+        is_mirror   = _left_val == "mirror_right" or (isinstance(_left_val, dict) and bool(_left_val.get("mirror_right")))
 
         target_frame   = current_frame + transition_time
         move_end_frame = target_frame + hold_time
@@ -98,6 +118,7 @@ def create_sequence(sentence):
             hd = sides_config[side]
             load_pose(hd["orientation"], side=side, apply_arm=True, apply_fingers=False,
                       apply_arm_location=False, apply_arm_rotation=True, keyframe_on_frame=target_frame)
+            _apply_arm_offset(hd, side, target_frame)
         for side, hd in sides_config.items():
             load_pose(hd["shape"], side=side, apply_arm=False, apply_fingers=True, keyframe_on_frame=target_frame)
         if expression != prev_expression:
@@ -111,6 +132,21 @@ def create_sequence(sentence):
 
         # --- HEAD ---
         animate_head(head_action, current_frame, target_frame, move_end_frame, settle_frame)
+
+        # --- CHEST ---
+        if chest_data:
+            animate_chest(chest_data, current_frame, target_frame, move_end_frame, settle_frame)
+
+        # --- EYES ---
+        eyes_data = data.get("eyes")
+        if eyes_data:
+            animate_eyes(eyes_data, current_frame, target_frame, move_end_frame, settle_frame)
+
+        # --- SHOULDERS ---
+        right_shoulder = data.get("right_shoulder")
+        left_shoulder  = data.get("left_shoulder")
+        if right_shoulder or left_shoulder:
+            animate_shoulders(right_shoulder, left_shoulder, current_frame, target_frame, move_end_frame, settle_frame)
 
         # --- MOVEMENT ---
         protect_rotation  = False
@@ -137,6 +173,8 @@ def create_sequence(sentence):
                     use_location=False,
                     apply_orientation=not protect_rotation
                 )
+                if not protect_rotation:
+                    _apply_arm_offset(hd, side, frame)
 
         # Hold expression through the sign — prevents BEZIER from fading early
         keyframe_expression(expression, settle_frame)

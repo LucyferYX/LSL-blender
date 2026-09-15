@@ -13,7 +13,12 @@ _RIGHT_HAND_WORLD_REF = None
 _LEFT_HAND_WORLD_REF  = None
 SIGN_LIBRARY = {}
 
-HEAD_EMPTY = "Empty_Head"
+HEAD_EMPTY          = "Empty_Head"
+CHEST_EMPTY         = "Empty_Chest"
+LEFTEYE_EMPTY       = "Empty_LeftEye"
+RIGHTEYE_EMPTY      = "Empty_RightEye"
+RIGHTSHOULDER_EMPTY = "Empty_RightShoulder"
+LEFTSHOULDER_EMPTY  = "Empty_LeftShoulder"
 
 # RIGHT SIDE
 RIGHTHAND_EMPTY = "Empty_RightHand"
@@ -47,6 +52,11 @@ POLE_L_LOC   = (-0.55, 0.4, 0.8)
 POLE_R_ANGLE = 150   # degrees
 POLE_L_ANGLE = 40    # degrees, changed from 45
 
+# Arm empty Z rotation correction (degrees). Compensates for forearm bone rest matrix
+# offset introduced by a fresh VRM import. Set to 0 if no correction is needed.
+# Empirically: new import needs arm Z = 150 where old import used 270 → correction = -120.
+ARM_ROT_Z_CORRECTION = -120
+
 # Bone name prefixes to skip during bake (physics/spring bones — no constraints, viewer ignores them)
 BAKE_EXCLUDE_PREFIXES = ["J_Sec_"]
 
@@ -56,12 +66,34 @@ ARM_RET_FRAMES   = 6
 CLIP_FPS         = 24
 
 EXPRESSION_MAP = {
-    "neutral":     "Fcl_ALL_Neutral",
-    "happy":       "Fcl_ALL_Joy",
-    "angry":       "Fcl_ALL_Angry",
-    "sad":         "Fcl_ALL_Sorrow",
-    "surprised":   "Fcl_ALL_Surprised",
-    "smiling":     "Fcl_ALL_Fun",
-    "questioning": {"Fcl_BRW_Joy": 0.8},
-    "concerned":   {"Fcl_BRW_Sorrow": 0.8},
+    "neutral":     {"Fcl_BRW_Neutral": 1, "Fcl_EYE_Neutral": 1, "Fcl_MTH_Close": 1, "Fcl_MTH_Fun": 0.5},
+    "happy":       {"Fcl_ALL_Joy": 1},
+    "angry":       {"Fcl_ALL_Angry": 1},
+    "sad":         {"Fcl_ALL_Sorrow": 1},
+    "surprised":   {"Fcl_ALL_Surprised": 1},
+    "smiling":     {"Fcl_ALL_Fun": 1},
+    "questioning": {"Fcl_BRW_Surprised": 1, "Fcl_EYE_Spread": 0.3, "Fcl_MTH_Surprised": 0.3, "Fcl_MTH_Close": 1.5},
+    "concerned":   {"Fcl_BRW_Sorrow": 0.8, "Fcl_MTH_U": 0.6, "Fcl_EYE_Angry": 0.5},
+    "mth_m":       {"Fcl_MTH_Close": 8},
+    "mth_f":       {"Fcl_MTH_Angry": 1.0},
+    # Mouthing visemes — vowels
+    "mth_a":       {"Fcl_MTH_A": 1.0},
+    "mth_e":       {"Fcl_MTH_E": 1.0},
+    "mth_i":       {"Fcl_MTH_I": 1.0},
+    "mth_o":       {"Fcl_MTH_O": 1.0},
+    "mth_u":       {"Fcl_MTH_U": 1.0},
+    # Mouthing visemes — consonants
+    "mth_b":       {"Fcl_MTH_Close": 1.0},
+    "mth_c":       {"Fcl_MTH_I": 0.3, "Fcl_MTH_Close": 0.5},
+    "mth_d":       {"Fcl_MTH_A": 0.3, "Fcl_MTH_Close": 0.3},
+    "mth_g":       {"Fcl_MTH_A": 0.2},
+    "mth_h":       {"Fcl_MTH_A": 0.5},
+    "mth_j":       {"Fcl_MTH_I": 0.5},
+    "mth_k":       {"Fcl_MTH_A": 0.2},
+    "mth_l":       {"Fcl_MTH_A": 0.4},
+    "mth_n":       {"Fcl_MTH_A": 0.2, "Fcl_MTH_Close": 0.2},
+    "mth_p":       {"Fcl_MTH_Close": 1.0},
+    "mth_r":       {"Fcl_MTH_A": 0.3},
+    "mth_s":       {"Fcl_MTH_I": 0.3, "Fcl_MTH_Close": 0.5},
+    "mth_t":       {"Fcl_MTH_A": 0.3, "Fcl_MTH_Close": 0.2},
 }

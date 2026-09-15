@@ -61,7 +61,7 @@ def animate_head(head_action, start_transition, start_hold, end_hold, end_settle
 
     elif head_action == "Head_No":
         base_rot  = (math.radians(90), 0, 0)
-        shake_z   = math.radians(10)
+        shake_z   = math.radians(-10)
         mid_frame = start_hold + (end_hold - start_hold) // 2  # midpoint of hold
 
         head.rotation_euler = base_rot
@@ -140,6 +140,127 @@ def animate_head(head_action, start_transition, start_hold, end_hold, end_settle
                         kp.interpolation = 'BEZIER'
 
 
+def animate_chest(chest_data, start_transition, start_hold, end_hold, end_settle):
+    """Drives Empty_Chest rotation (x/y/z in degrees) for lean-forward/backward movements.
+    chest_data: dict with optional rot_x, rot_y, rot_z keys (degrees). Base rotation is (0,0,0)."""
+    chest = bpy.data.objects.get(CHEST_EMPTY)
+    if not chest: return
+
+    base_rot = (0.0, 0.0, 0.0)
+
+    if isinstance(chest_data, dict):
+        target_rot = (
+            math.radians(chest_data.get("rot_x", 0)),
+            math.radians(chest_data.get("rot_y", 0)),
+            math.radians(chest_data.get("rot_z", 0)),
+        )
+    else:
+        target_rot = base_rot
+
+    chest.rotation_euler = base_rot
+    chest.keyframe_insert(data_path="rotation_euler", frame=start_transition)
+    chest.rotation_euler = target_rot
+    chest.keyframe_insert(data_path="rotation_euler", frame=start_hold)
+    chest.rotation_euler = target_rot
+    chest.keyframe_insert(data_path="rotation_euler", frame=end_hold)
+    chest.rotation_euler = base_rot
+    chest.keyframe_insert(data_path="rotation_euler", frame=end_settle)
+
+    if chest.animation_data and chest.animation_data.action:
+        action = chest.animation_data.action
+        if hasattr(action, "fcurves"):
+            for fcurve in action.fcurves:
+                if "rotation_euler" not in fcurve.data_path:
+                    continue
+                for kp in fcurve.keyframe_points:
+                    if kp.co[0] in {start_hold, end_hold}:
+                        kp.interpolation = 'LINEAR'
+                    elif kp.co[0] in {start_transition, end_settle}:
+                        kp.interpolation = 'BEZIER'
+
+
+def animate_eyes(eyes_data, start_transition, start_hold, end_hold, end_settle):
+    """Drives Empty_LeftEye and Empty_RightEye rotation (x/y/z in degrees) for gaze direction.
+    eyes_data: dict with optional rot_x, rot_y, rot_z keys (degrees). Base rotation is (0,0,0)."""
+    left_eye  = bpy.data.objects.get(LEFTEYE_EMPTY)
+    right_eye = bpy.data.objects.get(RIGHTEYE_EMPTY)
+    if not left_eye and not right_eye: return
+
+    base_rot = (0.0, 0.0, 0.0)
+
+    if isinstance(eyes_data, dict):
+        target_rot = (
+            math.radians(eyes_data.get("rot_x", 0)),
+            math.radians(eyes_data.get("rot_y", 0)),
+            math.radians(eyes_data.get("rot_z", 0)),
+        )
+    else:
+        target_rot = base_rot
+
+    for eye in (left_eye, right_eye):
+        if not eye: continue
+        eye.rotation_euler = base_rot
+        eye.keyframe_insert(data_path="rotation_euler", frame=start_transition)
+        eye.rotation_euler = target_rot
+        eye.keyframe_insert(data_path="rotation_euler", frame=start_hold)
+        eye.rotation_euler = target_rot
+        eye.keyframe_insert(data_path="rotation_euler", frame=end_hold)
+        eye.rotation_euler = base_rot
+        eye.keyframe_insert(data_path="rotation_euler", frame=end_settle)
+
+        if eye.animation_data and eye.animation_data.action:
+            action = eye.animation_data.action
+            if hasattr(action, "fcurves"):
+                for fcurve in action.fcurves:
+                    if "rotation_euler" not in fcurve.data_path:
+                        continue
+                    for kp in fcurve.keyframe_points:
+                        if kp.co[0] in {start_hold, end_hold}:
+                            kp.interpolation = 'LINEAR'
+                        elif kp.co[0] in {start_transition, end_settle}:
+                            kp.interpolation = 'BEZIER'
+
+
+def animate_shoulders(right_data, left_data, start_transition, start_hold, end_hold, end_settle):
+    """Drives Empty_RightShoulder / Empty_LeftShoulder location for shoulder raise/lower movements.
+    right_data / left_data: dict with optional loc_x, loc_y, loc_z keys (metres), or None.
+    Deltas are relative to each empty's current rest position in the scene."""
+    for data, empty_name in ((right_data, RIGHTSHOULDER_EMPTY), (left_data, LEFTSHOULDER_EMPTY)):
+        if not data:
+            continue
+        shoulder = bpy.data.objects.get(empty_name)
+        if not shoulder:
+            continue
+
+        base_loc = tuple(shoulder.location)
+        target_loc = (
+            base_loc[0] + data.get("loc_x", 0),
+            base_loc[1] + data.get("loc_y", 0),
+            base_loc[2] + data.get("loc_z", 0),
+        )
+
+        shoulder.location = base_loc
+        shoulder.keyframe_insert(data_path="location", frame=start_transition)
+        shoulder.location = target_loc
+        shoulder.keyframe_insert(data_path="location", frame=start_hold)
+        shoulder.location = target_loc
+        shoulder.keyframe_insert(data_path="location", frame=end_hold)
+        shoulder.location = base_loc
+        shoulder.keyframe_insert(data_path="location", frame=end_settle)
+
+        if shoulder.animation_data and shoulder.animation_data.action:
+            action = shoulder.animation_data.action
+            if hasattr(action, "fcurves"):
+                for fcurve in action.fcurves:
+                    if "location" not in fcurve.data_path:
+                        continue
+                    for kp in fcurve.keyframe_points:
+                        if kp.co[0] in {start_hold, end_hold}:
+                            kp.interpolation = 'LINEAR'
+                        elif kp.co[0] in {start_transition, end_settle}:
+                            kp.interpolation = 'BEZIER'
+
+
 def animate_slide(start_frame, duration, side="right", direction="left", distance=0.15, moves=1):
     """Slides the hand empty along the X axis (left/right) or Z axis (up/down).
     moves=1 (default): single one-way translation.
@@ -194,8 +315,10 @@ def animate_slide(start_frame, duration, side="right", direction="left", distanc
         bpy.context.preferences.edit.keyframe_new_interpolation_type = 'LINEAR'
 
 
-def animate_wave(start_frame, duration, side="right", rot_x=20, rot_y=0, rot_z=0, loc_x=0.02, cycles=2):
-    """Oscillating hand wave: alternates ±rot and ±loc_x for `cycles` full swings."""
+def animate_wave(start_frame, duration, side="right", rot_x=0, rot_y=0, rot_z=0, loc_x=0, loc_y=0, loc_z=0, cycles=2,
+                 arm_rot_x=0, arm_rot_y=0, arm_rot_z=0):
+    """Oscillating hand wave: alternates ±rot and ±loc for `cycles` full swings.
+    arm_rot_x/y/z: optional rotation delta (degrees) applied to the arm empty, oscillating in sync."""
     wrist = bpy.data.objects.get(_hand_empty(side))
     if not wrist: return
 
@@ -204,6 +327,13 @@ def animate_wave(start_frame, duration, side="right", rot_x=20, rot_y=0, rot_z=0
 
     dx, dy, dz = _mirror_rot(math.radians(rot_x), math.radians(rot_y), math.radians(rot_z), side)
     dlx = -loc_x if side == "left" else loc_x
+    dly = loc_y
+    dlz = loc_z
+
+    arm_obj = bpy.data.objects.get(_forearm_empty(side))
+    dax, day, daz = _mirror_rot(math.radians(arm_rot_x), math.radians(arm_rot_y), math.radians(arm_rot_z), side)
+    has_arm_rot   = (dax != 0 or day != 0 or daz != 0) and arm_obj
+    arm_origin_rot = arm_obj.rotation_euler.copy() if has_arm_rot else None
 
     total_peaks  = int(cycles * 2)              # e.g. cycles=2 → 4 peaks; cycles=1.5 → 3 peaks
     half_cycle   = (total_peaks % 2 == 1)       # odd peaks → ends displaced, no return to origin
@@ -216,26 +346,47 @@ def animate_wave(start_frame, duration, side="right", rot_x=20, rot_y=0, rot_z=0
     wrist.rotation_euler = origin_rot
     wrist.keyframe_insert(data_path="location",       frame=start_frame)
     wrist.keyframe_insert(data_path="rotation_euler", frame=start_frame)
+    if has_arm_rot:
+        arm_obj.rotation_euler = arm_origin_rot
+        arm_obj.keyframe_insert(data_path="rotation_euler", frame=start_frame)
 
     for i in range(total_peaks):
         sign = 1 if i % 2 == 0 else -1
         f = end_frame if (half_cycle and i == total_peaks - 1) else start_frame + int((i + 1) * step)
-        wrist.location       = (origin_loc.x + sign * dlx, origin_loc.y, origin_loc.z)
+        wrist.location       = (origin_loc.x + sign * dlx, origin_loc.y + sign * dly, origin_loc.z + sign * dlz)
         wrist.rotation_euler = (origin_rot.x + sign * dx, origin_rot.y + sign * dy, origin_rot.z + sign * dz)
         wrist.keyframe_insert(data_path="location",       frame=f)
         wrist.keyframe_insert(data_path="rotation_euler", frame=f)
+        if has_arm_rot:
+            arm_obj.rotation_euler = (arm_origin_rot.x + sign * dax, arm_origin_rot.y + sign * day, arm_origin_rot.z + sign * daz)
+            arm_obj.keyframe_insert(data_path="rotation_euler", frame=f)
 
     if not half_cycle:
         wrist.location = origin_loc
         wrist.rotation_euler = origin_rot
         wrist.keyframe_insert(data_path="location",       frame=end_frame)
         wrist.keyframe_insert(data_path="rotation_euler", frame=end_frame)
+        if has_arm_rot:
+            arm_obj.rotation_euler = arm_origin_rot
+            arm_obj.keyframe_insert(data_path="rotation_euler", frame=end_frame)
 
     if wrist.animation_data and wrist.animation_data.action:
         action = wrist.animation_data.action
         if hasattr(action, "fcurves"):
             for fcurve in action.fcurves:
                 if "location" not in fcurve.data_path and "rotation_euler" not in fcurve.data_path:
+                    continue
+                for kp in fcurve.keyframe_points:
+                    if start_frame <= kp.co[0] <= end_frame:
+                        kp.interpolation     = 'BEZIER'
+                        kp.handle_left_type  = 'AUTO'
+                        kp.handle_right_type = 'AUTO'
+                fcurve.update()
+    if has_arm_rot and arm_obj.animation_data and arm_obj.animation_data.action:
+        action = arm_obj.animation_data.action
+        if hasattr(action, "fcurves"):
+            for fcurve in action.fcurves:
+                if "rotation_euler" not in fcurve.data_path:
                     continue
                 for kp in fcurve.keyframe_points:
                     if start_frame <= kp.co[0] <= end_frame:
@@ -381,38 +532,6 @@ def animate_s(start_frame, duration, side="right"):
                             kp.handle_right_type = 'AUTO'
 
 
-def animate_pointing_down(start_frame, duration, side="right"):
-    wrist = bpy.data.objects.get(_hand_empty(side))
-    if not wrist: return
-
-    start_rot = wrist.rotation_euler.copy()
-    f_start, f_hit, f_end = start_frame, start_frame + int(duration * 0.6), start_frame + duration
-    dx_hit, dy_hit, dz_hit = _mirror_rot(math.radians(60), math.radians(25), math.radians(10), side)
-    dx_end, dy_end, dz_end = _mirror_rot(math.radians(55), math.radians(20), math.radians(10), side)
-
-    bpy.context.preferences.edit.keyframe_new_interpolation_type = 'BEZIER'
-    wrist.rotation_euler = start_rot
-    wrist.keyframe_insert(data_path="rotation_euler", frame=f_start)
-    wrist.rotation_euler = (start_rot.x+dx_hit, start_rot.y+dy_hit, start_rot.z+dz_hit)
-    wrist.keyframe_insert(data_path="rotation_euler", frame=f_hit)
-    wrist.rotation_euler = (start_rot.x+dx_end, start_rot.y+dy_end, start_rot.z+dz_end)
-    wrist.keyframe_insert(data_path="rotation_euler", frame=f_end)
-
-    if wrist.animation_data and wrist.animation_data.action:
-        action = wrist.animation_data.action
-        if hasattr(action, "fcurves"):
-            for fcurve in action.fcurves:
-                if "rotation_euler" in fcurve.data_path:
-                    for kp in fcurve.keyframe_points:
-                        if kp.co[0] == f_start:
-                            kp.interpolation     = 'BEZIER'
-                            kp.handle_right_type = 'VECTOR'
-                        elif kp.co[0] == f_hit:
-                            kp.interpolation     = 'BEZIER'
-                            kp.handle_left_type  = 'AUTO'
-                            kp.handle_right_type = 'AUTO'
-
-
 def _forearm_empty(side):
     return LEFTARM_EMPTY if side == "left" else RIGHTARM_EMPTY
 
@@ -429,56 +548,6 @@ def _set_bezier_on_object(obj, f_start, f_end):
                             kp.handle_left_type  = 'AUTO'
                             kp.handle_right_type = 'AUTO'
 
-
-
-def animate_morph(start_frame, duration, side="right",
-                  rot_x=0, rot_y=0, rot_z=0,
-                  from_shape=None, settle=True):
-    """Simultaneous wrist rotation + hand shape transition.
-    from_shape: shape keyframed at start_frame (overrides what the sequence loaded).
-    The end shape is the sign's own 'shape' field, applied by the sequence lock.
-    settle=True: ease-back at end (3 rotation keyframes, like flip); settle=False: clean 2-keyframe move."""
-    wrist = bpy.data.objects.get(_hand_empty(side))
-    if not wrist: return
-
-    start_rot = wrist.rotation_euler.copy()
-    f_end = start_frame + duration
-    dx, dy, dz = _mirror_rot(math.radians(rot_x), math.radians(rot_y), math.radians(rot_z), side)
-
-    if settle:
-        f_hit = start_frame + int(duration * 0.70)
-        bpy.context.preferences.edit.keyframe_new_interpolation_type = 'BEZIER'
-        wrist.rotation_euler = start_rot
-        wrist.keyframe_insert(data_path="rotation_euler", frame=start_frame)
-        wrist.rotation_euler = (start_rot.x + dx,        start_rot.y + dy,        start_rot.z + dz)
-        wrist.keyframe_insert(data_path="rotation_euler", frame=f_hit)
-        wrist.rotation_euler = (start_rot.x + dx * 0.93, start_rot.y + dy * 0.93, start_rot.z + dz * 0.93)
-        wrist.keyframe_insert(data_path="rotation_euler", frame=f_end)
-        bezier_frames = (start_frame, f_hit, f_end)
-    else:
-        bpy.context.preferences.edit.keyframe_new_interpolation_type = 'LINEAR'
-        wrist.rotation_euler = start_rot
-        wrist.keyframe_insert(data_path="rotation_euler", frame=start_frame)
-        wrist.rotation_euler = (start_rot.x + dx, start_rot.y + dy, start_rot.z + dz)
-        wrist.keyframe_insert(data_path="rotation_euler", frame=f_end)
-        bezier_frames = (start_frame, f_end)
-
-    if from_shape:
-        bpy.context.preferences.edit.keyframe_new_interpolation_type = 'LINEAR'
-        load_pose(from_shape, side=side, apply_arm=False, apply_fingers=True, keyframe_on_frame=start_frame)
-
-    if wrist.animation_data and wrist.animation_data.action:
-        action = wrist.animation_data.action
-        if hasattr(action, "fcurves"):
-            for fcurve in action.fcurves:
-                if "rotation_euler" in fcurve.data_path:
-                    for kp in fcurve.keyframe_points:
-                        if kp.co[0] in bezier_frames:
-                            kp.interpolation = 'BEZIER'
-                            kp.handle_left_type = 'AUTO'
-                            kp.handle_right_type = 'AUTO'
-
-    bpy.context.preferences.edit.keyframe_new_interpolation_type = 'LINEAR'
 
 
 def animate_finger_wiggle(start_frame, duration, side="right", shape_1="Hand_B", shape_2="Hand_F", cycles=3, use_relaxed=True):
@@ -727,7 +796,8 @@ def animate_circle(start_frame, duration, side="right", plane="xz",
 
 def animate_orbit(start_frame, duration, side="right", plane="xz",
                   radius_a=0.05, radius_b=None, cycles=2, direction="cw",
-                  settle=False, phase=0, arc=1.0):
+                  settle=False, phase=0, arc=1.0,
+                  rot_x=0, rot_y=0, rot_z=0):
     """Moves the hand empty in a circular or oval location path.
     plane:     which pair of world axes the circle is drawn in:
                "xz" — frontal (X left/right + Z up/down, circle faces viewer),
@@ -745,7 +815,10 @@ def animate_orbit(start_frame, duration, side="right", plane="xz",
                90 = 1/4 in, 270 = 3/4 in). The hand stays at its current location at
                t=0 regardless of phase.
     arc:       fraction of the full circle to trace (1.0 = complete loop, 0.75 = 3/4, etc.).
-               Values < 1.0 leave the hand at a non-zero offset unless settle=True."""
+               Values < 1.0 leave the hand at a non-zero offset unless settle=True.
+    rot_x/y/z: total rotation delta (degrees) applied to the hand empty's rotation_euler
+               over the duration of the orbit. The rotation interpolates linearly from the
+               starting orientation to start+delta. rot_x negated for left hand."""
     wrist = bpy.data.objects.get(_hand_empty(side))
     if not wrist: return
 
@@ -753,6 +826,11 @@ def animate_orbit(start_frame, duration, side="right", plane="xz",
         radius_b = radius_a
 
     origin = wrist.location.copy()
+    rot_origin = wrist.rotation_euler.copy()
+    drx = math.radians(-rot_x if side == "left" else rot_x)
+    dry = math.radians(rot_y)
+    drz = math.radians(rot_z)
+    has_rot = (rot_x != 0 or rot_y != 0 or rot_z != 0)
     plane_axes = {"xz": (0, 2), "xy": (0, 1), "yz": (1, 2)}
     idx_a, idx_b = plane_axes.get(plane, (0, 2))
     phase_rad = math.radians(phase)
@@ -792,16 +870,31 @@ def animate_orbit(start_frame, duration, side="right", plane="xz",
         loc[idx_b] += radius_b * (math.cos(phase_rad) - math.cos(t))
         wrist.location = Vector(loc)
         wrist.keyframe_insert(data_path="location", frame=frame)
+        if has_rot:
+            progress = i / loop_steps if loop_steps > 0 else 1.0
+            wrist.rotation_euler = Euler((
+                rot_origin[0] + drx * progress,
+                rot_origin[1] + dry * progress,
+                rot_origin[2] + drz * progress,
+            ), rot_origin.order)
+            wrist.keyframe_insert(data_path="rotation_euler", frame=frame)
 
     if settle and end_frame not in inserted:
         wrist.location = Vector(final_loc)
         wrist.keyframe_insert(data_path="location", frame=end_frame)
+        if has_rot:
+            wrist.rotation_euler = Euler((
+                rot_origin[0] + drx,
+                rot_origin[1] + dry,
+                rot_origin[2] + drz,
+            ), rot_origin.order)
+            wrist.keyframe_insert(data_path="rotation_euler", frame=end_frame)
 
     if wrist.animation_data and wrist.animation_data.action:
         action = wrist.animation_data.action
         if hasattr(action, "fcurves"):
             for fcurve in action.fcurves:
-                if "location" in fcurve.data_path:
+                if "location" in fcurve.data_path or (has_rot and "rotation_euler" in fcurve.data_path):
                     for kp in fcurve.keyframe_points:
                         if start_frame <= kp.co[0] <= end_frame:
                             kp.interpolation = 'BEZIER'
@@ -813,6 +906,12 @@ def animate_orbit(start_frame, duration, side="right", plane="xz",
 
     bpy.context.preferences.edit.keyframe_new_interpolation_type = 'LINEAR'
     wrist.location = Vector(final_loc)
+    if has_rot:
+        wrist.rotation_euler = Euler((
+            rot_origin[0] + drx,
+            rot_origin[1] + dry,
+            rot_origin[2] + drz,
+        ), rot_origin.order)
 
 
 def animate_scallop(start_frame, duration, side="right",
@@ -883,9 +982,7 @@ MOVE_REGISTRY = {
     "checkmark":     (animate_checkmark,     True),
     "halfcircle":    (animate_halfcircle,    True),
     "s_shape":       (animate_s,             True),
-    "point_down":    (animate_pointing_down, True),
     "flip":          (animate_flip,          True),
-    "morph":         (animate_morph,         True),
     "finger_wiggle": (animate_finger_wiggle, False),
     "circle":        (animate_circle,        True),
     "orbit":         (animate_orbit,         False),
@@ -926,21 +1023,20 @@ def dispatch_move(move, side, hd, start_frame, duration, is_mirror=False):
                     kwargs[key] = move[key]
     elif move_type == "wave":
         if is_dict:
-            for key in ("rot_x", "rot_y", "rot_z", "loc_x", "cycles"):
+            for key in ("rot_x", "rot_y", "rot_z", "loc_x", "loc_y", "loc_z", "cycles", "arm_rot_x", "arm_rot_y", "arm_rot_z"):
                 if key in move:
                     kwargs[key] = move[key]
-    elif move_type == "morph":
-        if is_dict:
-            for key in ("rot_x", "rot_y", "rot_z"):
-                if key in move:
-                    kwargs[key] = move[key]
-            if "settle" in move:
-                kwargs["settle"] = move["settle"]
     elif move_type in ("circle", "orbit"):
         if is_dict:
             for key in ("plane", "radius_a", "radius_b", "cycles", "direction", "settle", "phase", "arc"):
                 if key in move:
                     kwargs[key] = move[key]
+            if move_type == "orbit":
+                for key in ("rot_x", "rot_y", "rot_z"):
+                    if key in move:
+                        kwargs[key] = move[key]
+                if any(k in move for k in ("rot_x", "rot_y", "rot_z")):
+                    sets_protect = True
     elif move_type == "scallop":
         if is_dict:
             for key in ("loc_x", "loc_y", "loc_z", "arch_height", "cycles", "settle"):
@@ -960,6 +1056,14 @@ def dispatch_move(move, side, hd, start_frame, duration, is_mirror=False):
         load_pose(move["from_shape"], side=side, apply_arm=False, apply_fingers=True, keyframe_on_frame=start_frame)
 
     fn(start_frame, duration, **kwargs)
+
+    # Generic use_relaxed: inserts Hand_Relaxed at the move midpoint for smoother hand shape transitions.
+    # Works on any move type alongside from_shape.
+    if is_dict and move.get("use_relaxed"):
+        mid_frame = start_frame + duration // 2
+        bpy.context.preferences.edit.keyframe_new_interpolation_type = 'LINEAR'
+        load_pose("Hand_Relaxed", side=side, apply_arm=False, apply_fingers=True,
+                  keyframe_on_frame=mid_frame, filter_fingers=["Index", "Middle", "Ring", "Pinky"])
     end_shape_out = move.get("end_shape") if is_dict else None
     return sets_protect, end_shape_out
 

@@ -23,10 +23,15 @@ def _animate_sign_for_baking(word, data, start_frame=1):
     DEFAULT_HOLD = 10
     SETTLE_BUF   = 3
 
-    hold_time   = data.get("duration", DEFAULT_HOLD)
-    head_action = data.get("head")
-    expression  = data.get("expression")
-    is_mirror   = data.get("left") == "mirror_right"
+    hold_time    = data.get("duration", DEFAULT_HOLD)
+    head_action       = data.get("head")
+    chest_data        = data.get("chest")
+    eyes_data         = data.get("eyes")
+    right_shoulder    = data.get("right_shoulder")
+    left_shoulder     = data.get("left_shoulder")
+    expression   = data.get("expression")
+    _left_val   = data.get("left")
+    is_mirror   = _left_val == "mirror_right" or (isinstance(_left_val, dict) and bool(_left_val.get("mirror_right")))
 
     sides_config = {}
     for side in ["right", "left"]:
@@ -80,6 +85,18 @@ def _animate_sign_for_baking(word, data, start_frame=1):
     # ── Head ──────────────────────────────────────────────────────────────────
     if head_action:
         animate_head(head_action, start_frame, sign_frame, move_end, settle_frame)
+
+    # ── Chest ─────────────────────────────────────────────────────────────────
+    if chest_data:
+        animate_chest(chest_data, start_frame, sign_frame, move_end, settle_frame)
+
+    # ── Eyes ──────────────────────────────────────────────────────────────────
+    if eyes_data:
+        animate_eyes(eyes_data, start_frame, sign_frame, move_end, settle_frame)
+
+    # ── Shoulders ─────────────────────────────────────────────────────────────
+    if right_shoulder or left_shoulder:
+        animate_shoulders(right_shoulder, left_shoulder, start_frame, sign_frame, move_end, settle_frame)
 
     # ── Movement ──────────────────────────────────────────────────────────────
     protect_rotation   = False
@@ -542,36 +559,6 @@ def _push_to_nla(armature, action, bake_slot=None):
     return strip
 
 
-def _push_expression_to_nla(clip_name):
-    """Push the current face shape key action to an NLA track named clip_name."""
-    face_obj = bpy.data.objects.get(FACE_MESH_NAME)
-    if not face_obj or not face_obj.data.shape_keys:
-        return
-    sk = face_obj.data.shape_keys
-    if not sk.animation_data or not sk.animation_data.action:
-        return
-    sk_action = sk.animation_data.action
-    # Check peak expression values in the action's fcurves (not kb.value, which is at
-    # end-frame / all-zero by the time this runs).
-    expr_key_names = _all_expression_key_names()
-    peak = {}
-    for fc in _iter_action_fcurves(sk_action):
-        # fcurve data_path looks like: 'key_blocks["Fcl_ALL_Fun"].value'
-        for key_name in expr_key_names:
-            if f'"{key_name}"' in fc.data_path:
-                max_val = max((kp.co[1] for kp in fc.keyframe_points), default=0.0)
-                if max_val > 0.001:
-                    peak[key_name] = round(max_val, 3)
-    old = bpy.data.actions.get(f"expr_{clip_name}")
-    if old:
-        bpy.data.actions.remove(old)
-    sk_action.name = f"expr_{clip_name}"
-    sk.animation_data.action = None
-    track       = sk.animation_data.nla_tracks.new()
-    track.name  = clip_name
-    strip       = track.strips.new(clip_name, int(sk_action.frame_range[0]), sk_action)
-    strip.name  = clip_name
-
 
 def bake_all_signs_to_glb(
     armature_name = ARMATURE_NAME,
@@ -583,7 +570,7 @@ def bake_all_signs_to_glb(
     blend_dir = bpy.path.abspath("//")
 
     json_path = os.path.join(blend_dir, "signs.json")
-    with open(json_path, 'r', encoding='utf-8') as f:
+    with open(json_path, 'r', encoding='utf-8-sig') as f:
         SIGN_LIBRARY = json.load(f)
 
     setup_arm_pole_targets()

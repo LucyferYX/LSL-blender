@@ -1,15 +1,15 @@
-{
+﻿{
     "Start_Position": {
         "right": {
             "shape": "Hand_ClaspedRight",
             "location": "Location_Belly",
-            "orientation": "Orientation_Belly",
+            "orientation": "Orientation_Left_Left_z5_Low",
             "move": null
         },
         "left": {
             "shape": "Hand_ClaspedLeft",
             "location": "Location_Belly",
-            "orientation": "Orientation_Belly",
+            "orientation": "Orientation_Left_Left_z5_Low",
             "move": null
         },
         "head": null,
@@ -70,7 +70,7 @@
         "right": {
             "shape": "Hand_B",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_ForwardsLeft",
+            "orientation": "Orientation_Upwards_Forwards_z3",
             "move": null
         },
         "left": {
@@ -102,7 +102,7 @@
         "right": {
             "shape": "Hand_C",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_LeftBackwards",
+            "orientation": "Orientation_Upwards_Left_z2",
             "move": {"type": "checkmark"}
         },
         "left": {
@@ -188,7 +188,7 @@
         "right": {
             "shape": "Hand_G",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Left_Backwards",
+            "orientation": "Orientation_Left_Back",
             "move": null
         },
         "left": {
@@ -204,7 +204,7 @@
         "right": {
             "shape": "Hand_G",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Left_Backwards",
+            "orientation": "Orientation_Left_Back",
             "move": {"type": "flip", "rot_x": 0, "rot_y": 30, "rot_z": -75}
         },
         "left": {
@@ -306,7 +306,7 @@
         "right": {
             "shape": "Hand_V",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_UpwardsLeft",
+            "orientation": "Orientation_UpwardsForwards_Left",
             "move": {"type": "flip", "rot_x": 0, "rot_y": 30, "rot_z": -75}
         },
         "left": {
@@ -338,7 +338,7 @@
         "right": {
             "shape": "Hand_L",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_ForwardsLeft",
+            "orientation": "Orientation_Upwards_Forwards_z3",
             "move": {"type": "checkmark", "rot1_x": 0, "rot1_y": 30, "rot1_z": -30, "rot2_x": 0, "rot2_y": 0, "rot2_z": -75}
         },
         "left": {
@@ -386,7 +386,7 @@
         "right": {
             "shape": "Hand_N",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_ForwardsLeft",
+            "orientation": "Orientation_Upwards_Forwards_z3",
             "move": "checkmark"
         },
         "left": {
@@ -434,7 +434,7 @@
         "right": {
             "shape": "Hand_R",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_ForwardsLeft",
+            "orientation": "Orientation_Upwards_Forwards_z3",
             "move": null
         },
         "left": {
@@ -450,7 +450,7 @@
         "right": {
             "shape": "Hand_P",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Forwards_ForwardsUpwards",
+            "orientation": "Orientation_Upwards_y4_Forwards",
             "move": "s_shape"
         },
         "left": {
@@ -466,7 +466,7 @@
         "right": {
             "shape": "Hand_P",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Forwards_ForwardsLeft",
+            "orientation": "Orientation_Forwards_yn2_Down_z3",
             "move": "checkmark"
         },
         "left": {
@@ -482,8 +482,8 @@
         "right": {
             "shape": "Hand_P",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_ForwardsLeft",
-            "move": {"type": "morph", "from_shape": "Hand_T", "rot_y": 120}
+            "orientation": "Orientation_Upwards_Forwards_z3",
+            "move": {"type": "flip", "from_shape": "Hand_T", "rot_y": 105, "rot_z": -15, "loc_z": -0.05}
         },
         "left": {
             "shape": "Start_Position",
@@ -613,7 +613,7 @@
         "right": {
             "shape": "Hand_P",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_Backwards",
+            "orientation": "Orientation_Upwards_Back",
             "move": null
         },
         "left": {
@@ -629,7 +629,7 @@
         "right": {
             "shape": "Hand_V",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_Backwards",
+            "orientation": "Orientation_Upwards_Back",
             "move": null
         },
         "left": {
@@ -645,7 +645,7 @@
         "right": {
             "shape": "Hand_3",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_Backwards",
+            "orientation": "Orientation_Upwards_Back",
             "move": null
         },
         "left": {
@@ -661,7 +661,7 @@
         "right": {
             "shape": "Hand_4",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_Backwards",
+            "orientation": "Orientation_Upwards_Back",
             "move": null
         },
         "left": {
@@ -677,7 +677,7 @@
         "right": {
             "shape": "Hand_5",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_Backwards",
+            "orientation": "Orientation_Upwards_Back",
             "move": null
         },
         "left": {
@@ -693,13 +693,13 @@
         "right": {
             "shape": "Hand_6",
             "location": "Location_Neutral",
-            "orientation": "Orientation_UpwardsLeft_Backwards",
+            "orientation": "Orientation_Left_x2_Back",
             "move": null
         },
         "left": {
             "shape": "Hand_5",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_Backwards",
+            "orientation": "Orientation_Upwards_Back",
             "move": null
         },
         "head": null,
@@ -710,13 +710,13 @@
         "right": {
             "shape": "Hand_L",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_Backwards",
+            "orientation": "Orientation_Upwards_Back",
             "move": null
         },
         "left": {
             "shape": "Hand_5",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_Backwards",
+            "orientation": "Orientation_Upwards_Back",
             "move": null
         },
         "head": null,
@@ -727,13 +727,13 @@
         "right": {
             "shape": "Hand_3",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_Backwards",
+            "orientation": "Orientation_Upwards_Back",
             "move": null
         },
         "left": {
             "shape": "Hand_5",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_Backwards",
+            "orientation": "Orientation_Upwards_Back",
             "move": null
         },
         "head": null,
@@ -744,13 +744,13 @@
         "right": {
             "shape": "Hand_4",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_Backwards",
+            "orientation": "Orientation_Upwards_Back",
             "move": null
         },
         "left": {
             "shape": "Hand_5",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_Backwards",
+            "orientation": "Orientation_Upwards_Back",
             "move": null
         },
         "head": null,
@@ -766,7 +766,7 @@
                 "type": "slide",
                 "direction": "left",
                 "moves": 2,
-                "distance": 0.025
+                "distance": 0.03
             }
         },
         "left": "mirror_right",
@@ -774,12 +774,248 @@
         "expression": "neutral",
         "duration": 14
     },
+    "20": {
+        "right": {
+            "shape": "Hand_V",
+            "location": "Location_ShoulderForwards",
+            "orientation": "Orientation_Left_x2_Back",
+            "move": [
+                { "type": "flip", "rot_x": -60, "loc_z": -0.01, "arm_rot_y": -15, "settle": false },
+                { "type": "flip", "rot_x": 40, "loc_z": 0.01, "arm_rot_y": 15, "settle": false },
+                { "type": "flip", "rot_x": -40, "loc_z": -0.01, "arm_rot_y": -15, "settle": true }
+            ]
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 12
+    },
+    "30": {
+        "right": {
+            "shape": "Hand_3",
+            "location": "Location_ShoulderForwards",
+            "orientation": "Orientation_Left_x2_Back",
+            "move": [
+                { "type": "flip", "rot_x": -60, "loc_z": -0.01, "arm_rot_y": -15, "settle": false },
+                { "type": "flip", "rot_x": 40, "loc_z": 0.01, "arm_rot_y": 15, "settle": false },
+                { "type": "flip", "rot_x": -40, "loc_z": -0.01, "arm_rot_y": -15, "settle": true }
+            ]
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 12
+    },
+    "40": {
+        "right": {
+            "shape": "Hand_4",
+            "location": "Location_ShoulderForwards",
+            "orientation": "Orientation_Left_x2_Back",
+            "move": [
+                { "type": "flip", "rot_x": -60, "loc_z": -0.01, "arm_rot_y": -15, "settle": false },
+                { "type": "flip", "rot_x": 40, "loc_z": 0.01, "arm_rot_y": 15, "settle": false },
+                { "type": "flip", "rot_x": -40, "loc_z": -0.01, "arm_rot_y": -15, "settle": true }
+            ]
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 12
+    },
+    "50": {
+        "right": {
+            "shape": "Hand_5",
+            "location": "Location_ShoulderForwards",
+            "orientation": "Orientation_Left_x2_Back",
+            "move": [
+                { "type": "flip", "rot_x": -60, "loc_z": -0.01, "arm_rot_y": -15, "settle": false },
+                { "type": "flip", "rot_x": 40, "loc_z": 0.01, "arm_rot_y": 15, "settle": false },
+                { "type": "flip", "rot_x": -40, "loc_z": -0.01, "arm_rot_y": -15, "settle": true }
+            ]
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 12
+    },
+    "60": {
+        "right": {
+            "shape": "Hand_6",
+            "location": "Location_ShoulderRight",
+            "orientation": "Orientation_Left_x2_Back",
+            "arm_offset": [15, 0, 0],
+            "move": [
+                { "type": "flip", "rot_x": -60, "loc_z": -0.01, "arm_rot_y": -15, "settle": false },
+                { "type": "flip", "rot_x": 40, "loc_z": 0.01, "arm_rot_y": 15, "settle": false },
+                { "type": "flip", "rot_x": -40, "loc_z": -0.01, "arm_rot_y": -15, "settle": true }
+            ]
+        },
+        "left": {
+            "shape": "Hand_5",
+            "location": "Location_ShoulderRight",
+            "orientation": "Orientation_Left_x2_Back",
+            "arm_offset": [15, 0, 0],
+            "move": [
+                { "type": "flip", "rot_x": -60, "loc_z": -0.01, "arm_rot_y": -15, "settle": false },
+                { "type": "flip", "rot_x": 40, "loc_z": 0.01, "arm_rot_y": 15, "settle": false },
+                { "type": "flip", "rot_x": -40, "loc_z": -0.01, "arm_rot_y": -15, "settle": true }
+            ]
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 12
+    },
+    "70": {
+        "right": {
+            "shape": "Hand_L",
+            "location": "Location_ShoulderRight",
+            "orientation": "Orientation_Left_x2_Back",
+            "arm_offset": [15, 0, 0],
+            "move": [
+                { "type": "flip", "rot_x": -60, "loc_z": -0.01, "arm_rot_y": -15, "settle": false },
+                { "type": "flip", "rot_x": 40, "loc_z": 0.01, "arm_rot_y": 15, "settle": false },
+                { "type": "flip", "rot_x": -40, "loc_z": -0.01, "arm_rot_y": -15, "settle": true }
+            ]
+        },
+        "left": {
+            "shape": "Hand_5",
+            "location": "Location_ShoulderRight",
+            "orientation": "Orientation_Left_x2_Back",
+            "arm_offset": [15, 0, 0],
+            "move": [
+                { "type": "flip", "rot_x": -60, "loc_z": -0.01, "arm_rot_y": -15, "settle": false },
+                { "type": "flip", "rot_x": 40, "loc_z": 0.01, "arm_rot_y": 15, "settle": false },
+                { "type": "flip", "rot_x": -40, "loc_z": -0.01, "arm_rot_y": -15, "settle": true }
+            ]
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 12
+    },
+    "80": {
+        "right": {
+            "shape": "Hand_3",
+            "location": "Location_ShoulderRight",
+            "orientation": "Orientation_Left_x2_Back",
+            "arm_offset": [15, 0, 0],
+            "move": [
+                { "type": "flip", "rot_x": -60, "loc_z": -0.01, "arm_rot_y": -15, "settle": false },
+                { "type": "flip", "rot_x": 40, "loc_z": 0.01, "arm_rot_y": 15, "settle": false },
+                { "type": "flip", "rot_x": -40, "loc_z": -0.01, "arm_rot_y": -15, "settle": true }
+            ]
+        },
+        "left": {
+            "shape": "Hand_5",
+            "location": "Location_ShoulderRight",
+            "orientation": "Orientation_Left_x2_Back",
+            "arm_offset": [15, 0, 0],
+            "move": [
+                { "type": "flip", "rot_x": -60, "loc_z": -0.01, "arm_rot_y": -15, "settle": false },
+                { "type": "flip", "rot_x": 40, "loc_z": 0.01, "arm_rot_y": 15, "settle": false },
+                { "type": "flip", "rot_x": -40, "loc_z": -0.01, "arm_rot_y": -15, "settle": true }
+            ]
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 12
+    },
+    "90": {
+        "right": {
+            "shape": "Hand_4",
+            "location": "Location_ShoulderRight",
+            "orientation": "Orientation_Left_x2_Back",
+            "arm_offset": [15, 0, 0],
+            "move": [
+                { "type": "flip", "rot_x": -60, "loc_z": -0.01, "arm_rot_y": -15, "settle": false },
+                { "type": "flip", "rot_x": 40, "loc_z": 0.01, "arm_rot_y": 15, "settle": false },
+                { "type": "flip", "rot_x": -40, "loc_z": -0.01, "arm_rot_y": -15, "settle": true }
+            ]
+        },
+        "left": {
+            "shape": "Hand_5",
+            "location": "Location_ShoulderRight",
+            "orientation": "Orientation_Left_x2_Back",
+            "arm_offset": [15, 0, 0],
+            "move": [
+                { "type": "flip", "rot_x": -60, "loc_z": -0.01, "arm_rot_y": -15, "settle": false },
+                { "type": "flip", "rot_x": 40, "loc_z": 0.01, "arm_rot_y": 15, "settle": false },
+                { "type": "flip", "rot_x": -40, "loc_z": -0.01, "arm_rot_y": -15, "settle": true }
+            ]
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 12
+    },
+    "100": {
+        "right": {
+            "shape": "Hand_Hook",
+            "location": "Location_ChinRightFar",
+            "orientation": "Orientation_Left_x2_Back",
+            "move": { "type": "flip", "rot_x": 15, "loc_x": -0.06, "loc_z": -0.02, "arm_rot_x": 20, "settle": true, "from_shape": "Hand_P" }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 8
+    },
+    "1000": {
+        "right": {
+            "shape": "Hand_P",
+            "location": "Location_ShoulderBackwards",
+            "orientation": "Orientation_Left_x4_y2_Left_z2",
+            "move": {"type": "flip", "rot_x": -60, "rot_y": 15, "loc_x": 0.07, "loc_y": -0.05, "loc_z": -0.07}
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 8
+    },
+    "1000000": {
+        "right": {
+            "shape": "Hand_M",
+            "location": "Location_BoobRight",
+            "orientation": "Orientation_Upwards_x1_y2_Forwards_z3",
+            "move": {"type": "flip", "rot_x": -30, "rot_y": -30, "rot_z": -15, "loc_x": -0.05}
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 8
+    },
     "jā": {
         "right": {
             "shape": "Hand_B",
             "location": "Location_Neutral",
             "orientation": "Orientation_Upwards_Left",
-            "move": {"type": "flip", "rot_x": -90, "rot_z": 15, "loc_y": -0.053, "loc_z": -0.069}
+            "move": {"type": "flip", "rot_x": -90, "rot_z": 15, "loc_y": -0.05, "loc_z": -0.07}
         },
         "left": {
             "shape": "Start_Position",
@@ -795,7 +1031,7 @@
             "shape": "Hand_5",
             "location": "Location_Neutral",
             "orientation": "Orientation_Upwards_Forwards",
-            "move": {"type": "wave", "cycles": 2}
+            "move": {"type": "wave", "rot_x": 20, "loc_x": 0.02, "cycles": 2}
         },
         "left": {
             "shape": "Start_Position",
@@ -806,12 +1042,40 @@
         "expression": "sad",
         "duration": 16
     },
+    "pareizs": {
+        "right": {
+            "shape": "Hand_O",
+            "location": "Location_Neutral",
+            "orientation": "Orientation_Upwards_Left",
+            "move": {"type": "flip", "rot_x": -90, "rot_z": 15, "loc_y": -0.05, "loc_z": -0.07}
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": "Head_Yes",
+        "expression": "smiling",
+        "duration": 10
+    },
+    "piekrist": {
+        "right": {
+            "shape": "Hand_L",
+            "location": "Location_Neutral",
+            "orientation": "Orientation_Upwards_Left",
+            "move": {"type": "flip", "rot_x": -90, "rot_z": -15, "loc_y": -0.05, "loc_z": -0.07}
+        },
+        "left": "mirror_right",
+        "head": "Head_Yes",
+        "expression": "smiling",
+        "duration": 10
+    },
     "es": {
         "right": {
             "shape": "Hand_P",
             "location": "Location_ChestMiddle",
-            "orientation": "Orientation_UpwardsLeft_BackwardsLeftUp",
-            "move": {"type": "flip", "rot_y": 10, "rot_x": -40, "rot_z": 40, "loc_y": 0.05, "settle": true}
+            "orientation": "Orientation_Left_x5_y2_Back",
+            "move": {"type": "flip", "rot_y": 45, "rot_z": 15, "loc_x": 0.02, "loc_y": 0.05, "loc_z": -0.01, "from_shape": "Hand_T", "settle": true}
         },
         "left": {
             "shape": "Start_Position",
@@ -820,23 +1084,55 @@
         },
         "head": "Head_Nod",
         "expression": "smiling",
-        "duration": 12
+        "duration": 10
+    },
+    "tu": {
+        "right": {
+            "shape": "Hand_P",
+            "location": "Location_ChestMiddle",
+            "orientation": "Orientation_Upwards_Forwards_z3",
+            "move": {"type": "flip", "rot_y": 75, "rot_z": -45, "loc_y": -0.05, "loc_z": -0.01, "from_shape": "Hand_T", "settle": true}
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": "Head_Nod",
+        "expression": "smiling",
+        "duration": 10
+    },
+    "tas": {
+        "right": {
+            "shape": "Hand_P",
+            "location": "Location_ChestMiddle",
+            "orientation": "Orientation_Upwards_Forwards_z3",
+            "move": {"type": "flip", "rot_y": 60, "rot_z": 15, "loc_x": 0.05, "loc_y": 0, "loc_z": 0.07, "from_shape": "Hand_T", "settle": true}
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": {"rot_z": 10, "loc_y": 0.04},
+        "expression": "neutral",
+        "duration": 10
     },
     "esmu": {
         "right": {
             "shape": "Hand_B",
             "location": "Location_Cheekbone",
-            "orientation": "Orientation_Upwards_BackwardsLeft",
+            "orientation": "Orientation_Upwards_Left_z3",
             "move": [
-                { "type": "flip", "from_shape": "Hand_5", "rot_x": -75, "loc_y": -0.07, "loc_z": -0.1, "settle": false },
+                { "type": "flip", "from_shape": "Hand_5", "rot_x": -75, "loc_y": -0.1, "loc_z": -0.1, "settle": false },
                 { "type": "flip", "rot_x": 15, "loc_y": 0.02, "loc_z": 0.02, "settle": false },
                 { "type": "flip", "rot_x": -15, "loc_y": -0.02, "loc_z": -0.02, "settle": true }
             ]
         },
         "left": {
             "shape": "Hand_B",
-            "location": "Location_ChestMiddleClose",
-            "orientation": "Orientation_Upwards_DownwardsLeft",
+            "location": "Location_ChestMiddleClose3",
+            "orientation": "Orientation_Left_yn4_Left_z4",
             "move": null
         },
         "head": "Head_Nod",
@@ -846,24 +1142,50 @@
     "mans": {
         "right": {
             "shape": "Hand_B",
-            "location": "Location_ChestRight",
-            "orientation": "Orientation_UpwardsLeft_BackwardsLeft",
-            "move": null
+            "location": "Location_BoobRight",
+            "orientation": "Orientation_Left_x2_Back",
+            "move": { "type": "flip", "rot_y": 30, "loc_y": 0.02, "loc_z": 0.01 }
         },
         "left": {
             "shape": "Start_Position",
             "orientation": "Start_Position",
             "move": null
         },
-        "head": "Head_Nod",
+        "head": {"loc_y": -0.001},
+        "chest": {"rot_x": -3},
         "expression": "smiling",
-        "duration": 12
+        "duration": 10
     },
-    "saukt": {
+    "darbs": {
+        "right": {
+            "shape": "Hand_A",
+            "location": "Location_Mouth",
+            "orientation": "Orientation_Left_x4_Back",
+            "move": [
+                { "type": "flip", "rot_x": -45, "loc_x": 0.05, "loc_y": -0.08, "loc_z": -0.13, "settle": false },
+                { "type": "flip", "rot_x": 15, "loc_x": -0.02, "loc_y": 0.03, "loc_z": 0.05, "settle": false },
+                { "type": "flip", "rot_x": -15, "loc_x": 0.02, "loc_y": -0.03, "loc_z": -0.05, "settle": true }
+            ]
+        },
+        "left": {
+            "shape": "Hand_A",
+            "location": "Location_ChestMiddleClose5",
+            "orientation": "Orientation_Down_x5_Back",
+            "move": [
+                { "type": "flip", "loc_y": 0.01, "loc_z": 0.02, "settle": false },
+                { "type": "flip", "loc_y": -0.005, "loc_z": -0.01, "settle": false },
+                { "type": "flip", "loc_y": 0.005, "loc_z": 0.01, "settle": true }
+            ]
+        },
+        "head": "Head_Nod",
+        "expression": "neutral",
+        "duration": 16
+    },
+    "sauc": {
         "right": {
             "shape": "Hand_F",
             "location": "Location_CheekClose",
-            "orientation": "Orientation_Upwards_BackwardsCheek",
+            "orientation": "Orientation_Upwards_Back_z1_High",
             "move": {"type": "wave", "rot_x": 0, "rot_z": 20, "loc_x": 0, "cycles": 2}
         },
         "left": {
@@ -871,9 +1193,43 @@
             "orientation": "Start_Position",
             "move": null
         },
-        "head": {"loc_x": 0.01, "loc_y": 0.04, "rot_x": 100, "rot_z": 5},
+        "head": {"loc_x": 0.01, "loc_y": 0.02, "rot_x": 100, "rot_z": 5},
+        "chest": {"rot_x": 3},
         "expression": "neutral",
         "duration": 16
+    },
+    "vārds": {
+        "right": {
+            "shape": "Hand_Claw",
+            "location": "Location_Neutral",
+            "orientation": "Orientation_Left_x3_yn3_Forwards_z4",
+            "move": {"type": "flip", "loc_x": 0.01, "loc_y": -0.04, "loc_z": 0.01}
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": { "loc_y": 0.005, "loc_x": 0.005 },
+        "chest": {"rot_x": 3},
+        "expression": "neutral",
+        "duration": 10
+    },
+    "sāpēt": {
+        "right": {
+            "shape": "Hand_Open",
+            "location": "Location_BoobRight",
+            "orientation": "Orientation_Left_x2_Back",
+            "move": {"type": "wave", "loc_y": 0.02, "cycles": 1.5}
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": "Head_Nod",
+        "expression": "sad",
+        "duration": 12
     },
     "varēt": {
         "right": {
@@ -891,11 +1247,333 @@
         "expression": "smiling",
         "duration": 12
     },
+    "zināt": {
+        "right": {
+            "shape": "Hand_P",
+            "location": "Location_CheekFarClose",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": [
+                { "type": "flip", "rot_y": -20, "settle": false, "weight": 1 },
+                { "type": "flip", "rot_y": 150, "rot_z": 15, "loc_y": -0.05, "loc_z": -0.1, "weight": 4 }
+            ]
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": "Head_Yes",
+        "expression": "smiling",
+        "duration": 12
+    },
+    "redzēt": {
+        "right": {
+            "shape": "Hand_V",
+            "location": "Location_Neck",
+            "orientation": "Orientation_Left_x5_y2_Back",
+            "move": {"type": "flip", "loc_x": -0.02, "loc_y": -0.04, "loc_z": -0.03, "rot_y": -30}
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": "Head_Nod",
+        "expression": "neutral",
+        "duration": 10
+    },
+    "ēst": {
+        "right": {
+            "shape": "Hand_E",
+            "location": "Location_CollarboneRight",
+            "orientation": "Orientation_Left_x5_yn2_Left_z5",
+            "move": {"type": "wave", "loc_y": 0.02, "loc_z": 0.003, "rot_y": 10, "cycles": 1.5}
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": "Head_Nod",
+        "expression": "mth_d",
+        "duration": 10
+    },
+    "sarkans": {
+        "right": {
+            "shape": "Hand_Pinch",
+            "location": "Location_CollarboneMiddle",
+            "orientation": "Orientation_Upwards_Back_High",
+            "move": [
+                { "type": "flip", "from_shape": "Hand_P", "rot_x": -5, "rot_y": 15, "loc_y": 0.01, "settle": true },
+                { "type": "flip", "from_shape": "Hand_Pinch", "rot_y": -15, "loc_y": -0.01, "settle": false },
+                { "type": "flip", "from_shape": "Hand_P", "rot_y": 15, "loc_y": 0.01, "settle": true }
+            ]
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "mth_d",
+        "duration": 16
+    },
+    "zaļš": {
+        "right": {
+            "shape": "Hand_6",
+            "location": "Location_CollarboneRight",
+            "orientation": "Orientation_Upwards_Left",
+            "move": { "type": "flip", "rot_x": -60, "rot_y": -15, "loc_x": -0.01, "loc_y": -0.03, "settle": true }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": null,
+        "duration": 12
+    },
+    "zils": {
+        "right": {
+            "shape": "Hand_Claw",
+            "location": "Location_Neutral",
+            "orientation": "Orientation_Left_x3_yn3_Forwards_z4",
+            "move": [
+                { "type": "flip", "rot_y": 30, "weight": 1 },
+                { "type": "wave", "loc_x": 0.01, "rot_y": 15, "cycles": 2, "weight": 5 }
+            ]
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 16
+    },
+    "brilles": {
+        "right": {
+            "shape": "Hand_0",
+            "location": "Location_Ear",
+            "orientation": "Orientation_Upwards_Forwards_z4",
+            "arm_offset": [0, -75, 0],
+            "move": [
+                { "type": "flip", "rot_y": 10, "loc_x": 0.003, "loc_y": 0.01, "loc_z": -0.005, "settle": true }
+            ]
+        },
+        "left": "mirror_right",
+        "chest": {"rot_x": 3},
+        "head": {"loc_y": 0.01},
+        "expression": "neutral",
+        "duration": 12
+    },
+    "deguns": {
+        "right": {
+            "shape": "Hand_P",
+            "location": "Location_Neck",
+            "orientation": "Orientation_Left_x5_y2_Back",
+            "move": { "type": "flip", "rot_y": 10, "loc_z": -0.005, "settle": true }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 10
+    },
+    "teikt": {
+        "right": {
+            "shape": "Hand_P",
+            "location": "Location_CollarboneRight",
+            "orientation": "Orientation_Left_x5_y2_Back",
+            "move": { "type": "flip", "rot_x": -10, "rot_y": -90, "loc_x": -0.02, "loc_z": -0.02, "settle": true }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "mth_r",
+        "duration": 12
+    },
+    "ziņot": {
+        "right": {
+            "shape": "Hand_Hook",
+            "location": "Location_CheekFar",
+            "orientation": "Orientation_Left_x5_y2_Back",
+            "move": { "type": "flip", "rot_y": -45, "rot_z": -30, "loc_x": -0.02, "loc_y": -0.03, "loc_z": -0.02, "settle": true, "from_shape": "Hand_P" }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": {"loc_x": -0.01, "loc_y": 0.01},
+        "expression": "neutral",
+        "duration": 10
+    },
+    "cilvēks": {
+        "right": {
+            "shape": "Hand_Claw",
+            "location": "Location_Mouth",
+            "orientation": "Orientation_Left_x3_yn1_Forwards_z3",
+            "move": { "type": "flip", "rot_x": -30, "rot_y": 45, "loc_z": -0.2, "settle": true }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 12
+    },
+    "cilvēki": {
+        "right": {
+            "shape": "Hand_Claw",
+            "location": "Location_Mouth",
+            "orientation": "Orientation_Left_x3_yn1_Forwards_z3",
+            "move": [
+                { "type": "flip", "rot_x": -30, "rot_y": 45, "loc_z": -0.2, "settle": true, "weight": 2 },
+                { "type": "flip", "rot_x": 30, "rot_y": -45, "loc_x": -0.03, "loc_z": 0.2, "settle": false, "weight": 1 },
+                { "type": "flip", "rot_x": -30, "rot_y": 45, "loc_z": -0.2, "settle": true, "weight": 2 }
+            ]
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 22
+    },
+    "sieviete": {
+        "right": {
+            "shape": "Hand_BThumb",
+            "location": "Location_CollarboneMiddle",
+            "orientation": "Orientation_Upwards_Left",
+            "arm_offset": [0, -45, 30],
+            "move": { "type": "wave", "rot_x": 5, "cycles": 2 }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "chest": {"rot_x": 5},
+        "expression": "neutral",
+        "duration": 12
+    },
+    "māte": {
+        "right": {
+            "shape": "Hand_BThumb",
+            "location": "Location_ChinMiddleRight",
+            "orientation": "Orientation_Upwards_Forwards_z4",
+            "move": { 
+                "type": "orbit", "plane": "xy", 
+                "radius_a": 0.05, "cycles": 1, "direction": "ccw", 
+                "phase": 270, "arc": 0.5, "rot_z": 60, "settle": true
+            }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "chest": {"rot_x": 3},
+        "expression": "neutral",
+        "duration": 16
+    },
+    "vīrietis": {
+        "right": {
+            "shape": "Hand_A",
+            "location": "Location_CheekFar",
+            "orientation": "Orientation_Left_x4_y2_Left_z2",
+            "move": [
+                { "type": "flip", "rot_z": 30, "loc_x": -0.02, "arm_rot_x": 30, "settle": false, "from_shape": "Hand_T" },
+                { "type": "flip", "rot_z": -15, "loc_x": 0.02, "arm_rot_x": -15, "settle": false, "from_shape": "Hand_A" },
+                { "type": "flip", "rot_z": 15, "loc_x": -0.02, "arm_rot_x": 15,"settle": true, "from_shape": "Hand_T" }
+            ]
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": {"loc_y": 0.01},
+        "chest": {"rot_x": 1},
+        "expression": "neutral",
+        "duration": 14
+    },
+    "tēvs": {
+        "right": {
+            "shape": "Hand_Pinch",
+            "location": "Location_CheekFurther",
+            "orientation": "Orientation_Upwards_Left",
+            "move": { "type": "flip", "rot_z": 30, "loc_x": -0.04, "settle": true }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "chest": {"rot_x": -1},
+        "expression": "neutral",
+        "duration": 10
+    },
+    "bērns": {
+        "right": {
+            "shape": "Hand_U",
+            "location": "Location_ShoulderForwards",
+            "orientation": "Orientation_Upwards_Forwards_z4",
+            "move": { "type": "wave", "rot_z": 30, "arm_rot_z": 5, "arm_rot_y": 10, "settle": true }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "chest": {"rot_x": -1},
+        "expression": "neutral",
+        "duration": 10
+    },
+    "kaķis": {
+        "right": {
+            "shape": "Hand_Grab",
+            "location": "Location_ChestMiddleClose4",
+            "orientation": "Orientation_Forwards_yn2_Down_z5",
+            "move": [
+                { "type": "flip", "from_shape": "Hand_Open", "rot_y": 30, "loc_x": -0.03, "loc_y": -0.01, "loc_z": 0.01, "settle": true },
+                { "type": "flip", "from_shape": "Hand_Grab", "rot_y": -30, "loc_x": 0.03, "loc_y": 0.01, "loc_z": -0.01, "settle": false },
+                { "type": "flip", "from_shape": "Hand_Open", "rot_y": 30, "loc_x": -0.03, "loc_y": -0.01, "loc_z": 0.01, "settle": true }
+            ]
+        },
+        "left": {
+            "shape": "Hand_Open",
+            "location": "Location_ChestMiddleClose",
+            "orientation": "Orientation_Forwards_x2_y2_Down_z3",
+            "move": null
+        },
+        "head": null,
+        "chest": {"rot_x": -3},
+        "expression": "neutral",
+        "duration": 16
+    },
     "grādi": {
         "right": {
             "shape": "Hand_0",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Upwards_Left_Up",
+            "orientation": "Orientation_Upwards_Left_High",
             "move": null
         },
         "left": {
@@ -906,6 +1584,98 @@
         "head": null,
         "expression": "neutral",
         "duration": 10
+    },
+    "sākums": {
+        "right": {
+            "shape": "Hand_O",
+            "location": "Location_Neutral",
+            "orientation": "Orientation_Upwards_Forwards_z4",
+            "move": {
+                "type": "flip", "rot_x": -20, "rot_y": -20, "loc_x": -0.05, "loc_z": 0.03
+            }
+        },
+        "left": "mirror_right",
+        "head": null,
+        "expression": "neutral",
+        "duration": 14
+    },
+    "nedaudz": {
+        "right": {
+            "shape": "Hand_Duck",
+            "location": "Location_Neutral",
+            "orientation": "Orientation_Upwards_Left",
+            "move": {"type": "flip", "rot_x": -10, "loc_y": -0.02, "loc_z": -0.02}
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 8
+    },
+    "saule": {
+        "right": {
+            "shape": "Hand_P",
+            "location": "Location_Mouth",
+            "orientation": "Orientation_Upwards_y2_Forwards_z3",
+            "move": { 
+                "type": "orbit", "plane": "xy", 
+                "radius_a": 0.03, "cycles": 2, "direction": "ccw", 
+                "phase": 90, "arc": 1, "rot_z": -30, "settle": true
+            }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": {"loc_x": 0.01, "loc_y": 0.04, "rot_x": 85, "rot_z": -15},
+        "expression": "neutral",
+        "duration": 20
+    },
+    "latvija": {
+        "right": {
+            "shape": "Hand_L",
+            "location": "Location_ChestLeft",
+            "orientation": "Orientation_UpwardsForwards_Left",
+            "move": [
+                { "type": "flip", "loc_y": 0.02, "settle": true, "weight": 1 },
+                {
+                    "type": "flip", "rot_y": 120, "rot_z": -90, "arm_rot_y": -15,
+                    "loc_x": -0.07, "loc_z": -0.07, "settle": true, "weight": 5
+                }
+            ]
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 20
+    },
+    "valsts": {
+        "right": {
+            "shape": "Hand_B",
+            "location": "Location_Neutral",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "orbit", "plane": "xz", 
+                "radius_a": 0.03, "cycles": 2, "direction": "cw", 
+                "phase": 90, "arc": 0.75, "settle": false
+            }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 20
     },
     "pasaule": {
         "right": {
@@ -919,15 +1689,79 @@
         "expression": "neutral",
         "duration": 12
     },
+    "policija": {
+        "right": {
+            "shape": "Hand_NBent2",
+            "location": "Location_Neutral",
+            "orientation": "Orientation_Forwards_yn2_Down_z3",
+            "move": [
+                { "type": "flip", "rot_y": 15, "rot_z": -8, "loc_x": -0.01, "loc_y": 0.01, "loc_z": 0.015, "from_shape": "Hand_N", "settle": false, "weight": 1 },
+                { "type": "flip", "rot_y": -15, "loc_x": 0.01, "loc_y": -0.01, "loc_z": -0.015, "from_shape": "Hand_NBent", "settle": false, "weight": 1 },
+                { "type": "flip", "rot_y": 15, "loc_x": -0.01, "loc_y": 0.01, "loc_z": 0.015, "from_shape": "Hand_N", "settle": true, "weight": 1 }
+            ]
+        },
+        "left": {
+            "shape": "Hand_Open",
+            "location": "Location_ChestMiddle",
+            "orientation": "Orientation_Left_Down",
+            "move": null
+        },
+        "chest": {"rot_x": -2},
+        "expression": "neutral",
+        "duration": 14
+    },
+    "stacija": {
+        "right": {
+            "shape": "Hand_A",
+            "location": "Location_Mouth",
+            "orientation": "Orientation_Left_x4_Back",
+            "move": [
+                { "type": "flip", "rot_x": -45, "loc_x": 0.05, "loc_y": -0.08, "loc_z": -0.13, "settle": true }
+            ]
+        },
+        "left": {
+            "shape": "Hand_A",
+            "location": "Location_ChestMiddleClose5",
+            "orientation": "Orientation_Down_x5_Back",
+            "move": [
+                { "type": "flip", "loc_y": 0.01, "loc_z": 0.02, "settle": true }
+            ]
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 10
+    },
+    "viss": {
+        "right": {
+            "shape": "Hand_E",
+            "location": "Location_FarRight",
+            "orientation": "Orientation_Left_x4_yn2_Forwards",
+            "move": {
+                "type": "flip", "from_shape": "Hand_5",
+                "rot_x": -30, "rot_y": 30, "rot_z": 165,
+                "loc_x": 0.2, "loc_y": 0, "loc_z": -0.05,
+                "arm_rot_x": -75, "arm_rot_y": 75, "arm_rot_z": 100,
+                "settle": true
+            }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": {"loc_y": 0.04},
+        "expression": "neutral",
+        "duration": 12
+    },
     "lapa": {
         "right": {
             "shape": "Hand_P",
             "location": "Location_ShoulderForwards",
-            "orientation": "Orientation_Forwards_ForwardsLeft",
+            "orientation": "Orientation_Forwards_yn2_Down_z3",
             "move": [
-                { "type": "flip", "loc_x": -0.01, "loc_z": 0.0,  "rot_x": -30, "rot_y": -20,  "settle": true, "weight": 1 },
-                { "type": "flip", "loc_x": 0.0,  "loc_z": -0.05, "rot_y": 50,   "settle": true, "weight": 2 },
-                { "type": "flip", "loc_x": 0.01, "loc_z": 0.0,  "rot_x": 20, "settle": true, "weight": 1 }
+                { "type": "flip", "loc_x": -0.01, "loc_z": 0.0, "rot_x": -30, "rot_y": -20, "settle": true, "weight": 1 },
+                { "type": "flip", "loc_z": -0.05, "rot_y": 50, "settle": true, "weight": 2 },
+                { "type": "flip", "loc_x": 0.01, "loc_z": 0.0, "rot_x": 20, "settle": true, "weight": 1 }
             ]
         },
         "left": "mirror_right",
@@ -942,7 +1776,7 @@
             "orientation": "Orientation_Upwards_Left",
             "move": [
                 {"type": "slide", "direction": "right", "distance": 0.05, "from_shape": "Hand_Claw", "weight": 3},
-                {"type": "morph", "from_shape": "Hand_Claw", "weight": 1}
+                {"type": "flip", "from_shape": "Hand_Claw", "weight": 1}
             ]
         },
         "left": "mirror_right",
@@ -950,12 +1784,124 @@
         "expression": "neutral",
         "duration": 12
     },
+    "koks": {
+        "right": {
+            "shape": "Hand_B",
+            "location": "Location_ChestMiddleClose4",
+            "orientation": "Orientation_Forwards_x2_Down",
+            "move": [
+                { "type": "flip", "rot_x": 60, "loc_x": 0.04, "loc_y": 0.02, "arm_rot_x": 30, "settle": false},
+                { "type": "flip", "rot_x": -45, "loc_x": -0.01, "loc_y": -0.02, "settle": false },
+                { "type": "flip", "rot_x": 45, "loc_x": 0.01, "loc_y": 0.02, "settle": true }
+            ]
+        },
+        "left": {
+            "shape": "Hand_B",
+            "location": "Location_Mouth",
+            "orientation": "Orientation_Upwards_Left",
+            "arm_offset": [0, 0, -35],
+            "move": null
+        },
+        "chest": {"rot_x": -3},
+        "expression": "neutral",
+        "duration": 14
+    },
+    "kas": {
+        "right": {
+            "shape": "Hand_V",
+            "location": "Location_ChestMiddleClose",
+            "orientation": "Orientation_Upwards_Forwards_z3",
+            "move": {"type": "wave", "rot_x": 10, "loc_x": 0.005, "cycles": 1.5}
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 8
+    },
+    "kur": {
+        "right": {
+            "shape": "Hand_5",
+            "location": "Location_ChestMiddleClose",
+            "orientation": "Orientation_Forwards_Up",
+            "move": {"type": "wave", "rot_x": -10, "rot_y": 3, "rot_z": 0, "loc_x": 0, "loc_z": 0, "cycles": 2}
+        },
+        "left": "mirror_right",
+        "head": {"loc_y": -0.01, "rot_x": 105},
+        "expression": "concerned",
+        "duration": 10
+    },
+    "kad": {
+        "right": {
+            "shape": "Hand_5",
+            "location": "Location_Cheekbone",
+            "orientation": "Orientation_Left_x4_y3_Back",
+            "move": {
+                "type": "flip", "from_shape": "Hand_Relaxed", "rot_x": 40, "rot_y": -75, 
+                "loc_x": -0.02, "loc_y": -0.03, "loc_z": -0.03, "settle": true
+            }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "questioning",
+        "duration": 8
+    },
     "kā": {
         "right": {
             "shape": "Hand_V",
             "location": "Location_Neutral",
             "orientation": "Orientation_Upwards_Left",
-            "move": {"type": "flip", "rot_x": -75, "loc_y": -0.053, "loc_z": -0.059}
+            "move": {"type": "flip", "rot_x": -75, "loc_y": -0.05, "loc_z": -0.06, "settle": true}
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "questioning",
+        "duration": 8
+    },
+    "kāds": {
+        "right": {
+            "shape": "Hand_P",
+            "location": "Location_ChestMiddleClose",
+            "orientation": "Orientation_Left_Back",
+            "move": [
+                { "type": "flip", "rot_x": 5, "loc_x": -0.03, "settle": false },
+                { "type": "flip", "loc_x": 0.03, "settle": false },
+                { "type": "flip", "loc_x": -0.03, "settle": false },
+                { "type": "flip", "loc_x": 0.03, "settle": true }
+            ]
+        },
+        "left": {
+            "shape": "Hand_B",
+            "location": "Location_ChestMiddleClose3",
+            "orientation": "Orientation_Left_x2_Left",
+            "move": null
+        },
+        "head": null,
+        "expression": "questioning",
+        "duration": 10
+    },
+    "cik": {
+        "right": {
+            "shape": "Hand_Wiggle1",
+            "location": "Location_Neutral",
+            "orientation": "Orientation_Upwards_Back",
+            "move": [
+                { "type": "flip", "from_shape": "Hand_Wiggle2", "rot_y": 5, "settle": false },
+                { "type": "flip", "from_shape": "Hand_Wiggle1", "rot_y": -5, "settle": false },
+                { "type": "flip", "from_shape": "Hand_Wiggle2", "rot_y": 5, "settle": false },
+                { "type": "flip", "from_shape": "Hand_Wiggle1", "rot_y": -5, "settle": true }
+            ]
         },
         "left": {
             "shape": "Start_Position",
@@ -970,8 +1916,10 @@
         "right": {
             "shape": "Hand_5",
             "location": "Location_RibsRight",
-            "orientation": "Orientation_Forwards_Forwards",
-            "move": { "type": "flip", "rot_y": 160, "arm_rot_x": -95, "arm_rot_y": 45, "arm_rot_z": 35, "settle": false, "use_quaternion": true }
+            "orientation": "Orientation_Forwards_Down",
+            "move": { 
+                "type": "flip", "rot_y": 160, "arm_rot_x": -35, "arm_rot_y": 95, "arm_rot_z": 75, 
+                "settle": false, "use_quaternion": true }
         },
         "left": {
             "shape": "Start_Position",
@@ -982,11 +1930,47 @@
         "expression": "questioning",
         "duration": 6
     },
+    "un": {
+        "right": {
+            "shape": "Hand_N",
+            "location": "Location_ShoulderBackwards",
+            "orientation": "Orientation_Forwards_Up",
+            "move": {"type": "flip", "rot_y": -150, "loc_x": 0.03, "loc_z": -0.03, "use_quaternion": true}
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 8
+    },
+    "būt": {
+        "right": {
+            "shape": "Hand_B",
+            "location": "Location_Cheekbone",
+            "orientation": "Orientation_Upwards_Left",
+            "move": {
+                "type": "flip", "rot_x": -30, "rot_z": -15, 
+                "loc_x": -0.03, "loc_y": -0.03, "loc_z": -0.05, 
+                "arm_rot_z": -30
+            }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": "Head_Yes",
+        "expression": "neutral",
+        "duration": 8
+    },
     "ir": {
         "right": {
             "shape": "Hand_P",
             "location": "Location_ChestMiddleClose",
-            "orientation": "Orientation_Upwards_ForwardsLeft",
+            "orientation": "Orientation_Upwards_Forwards_z3",
             "move": {"type": "wave", "rot_x": 10, "loc_x": 0.005, "cycles": 1.5}
         },
         "left": {
@@ -998,30 +1982,529 @@
         "expression": "neutral",
         "duration": 8
     },
+    "nav": {
+        "right": {
+            "shape": "Hand_6",
+            "location": "Location_ChinRight",
+            "orientation": "Orientation_Left_x3_yn2_Back",
+            "move": {"type": "flip", "rot_x": 55, "rot_y": 30, "loc_x": -0.04, "arm_rot_x": 45, "use_relaxed": true, "from_shape":"Hand_B"}
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": "Head_No",
+        "expression": "sad",
+        "duration": 8
+    },
+    "automašīna": {
+        "right": {
+            "shape": "Hand_A",
+            "location": "Location_ShoulderForwards",
+            "orientation": "Orientation_Left_x1_y1_Back",
+            "move": {"type": "wave", "rot_x": 10, "loc_x": 0.01, "loc_z": -0.04, "settle": true, "cycles": 2}
+        },
+        "left": {
+            "move": {"type": "wave", "rot_x": -10, "loc_x": -0.01, "loc_z": 0.04, "settle": true, "cycles": 2},
+            "mirror_right": true
+        },
+        "head": null,
+        "chest": {"rot_x": -1},
+        "expression": "neutral",
+        "duration": 20
+    },
+    "lidot": {
+        "right": {
+            "shape": "Hand_U",
+            "location": "Location_ShoulderBackwards",
+            "orientation": "Orientation_Forwards_yn2_Down_z3",
+            "move": {"type": "flip", "rot_y": 10, "rot_z": 15, "loc_x": 0.15, "loc_z": 0.02, "arm_rot_z": 45, "settle": true}
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "chest": {"rot_x": -1},
+        "expression": "neutral",
+        "duration": 12
+    },
     "palīdzība": {
         "right": {
             "shape": "Hand_Frame",
             "location": "Location_RibsRightClose",
-            "orientation": "Orientation_Left_BackwardsDownDown",
-            "move": [
-                { "type": "flip", "rot_x": 30, "loc_x": 0.08, "loc_z": 0.03, "settle": true }
-            ]
+            "orientation": "Orientation_Down_x4_yn3_Left_z3",
+            "move": { 
+                "type": "flip", "rot_x": 30, "loc_x": 0.1, "loc_y": -0.04, "settle": true
+            }
         },
         "left": {
             "shape": "Hand_Frame",
             "location": "Location_ChestMiddleClose",
-            "orientation": "Orientation_Left_BackwardsDown",
+            "orientation": "Orientation_Left_x2_yn4_Back",
+            "move": null
+        },
+        "head": {"loc_y": -0.01, "rot_z": -5},
+        "chest": {"rot_x": 5},
+        "eyes": {"rot_x": -0.5, "rot_z": -1},
+        "expression": "questioning",
+        "duration": 12
+    },
+    "medicīna": {
+        "right": {
+            "shape": "Hand_T",
+            "location": "Location_ChestLeft",
+            "orientation": "Orientation_Left_x4_y3_Back",
+            "arm_offset": [-30, -30, 0],
+            "move": [
+                { "type": "flip", "rot_x": -70, "rot_z": 30, "loc_x": 0.02, "loc_z": -0.02, "settle": true, "from_shape": "Hand_P" },
+                { "type": "flip", "rot_x": 20, "rot_y": -30, "loc_x": 0.01, "loc_y": -0.02, "settle": true, "from_shape": "Hand_P" },
+                { "type": "flip", "rot_x": 0, "rot_z": 20, "loc_x": -0.005, "loc_y": -0.03, "settle": true, "from_shape": "Hand_P" }
+            ]
+        },
+        "left": null,
+        "head": {"loc_x": 0.01},
+        "chest": {"rot_z": -10},
+        "left_shoulder": {"loc_y": -0.06},
+        "expression": "neutral",
+        "duration": 20
+    },
+    "laiks": {
+        "right": {
+            "shape": "Hand_P",
+            "location": "Location_BicepRight",
+            "orientation": "Orientation_Upwards_Back",
+            "move": {"type": "flip", "rot_x": -120, "loc_x": -0.01, "loc_z": -0.03, "settle": true}
+        },
+        "left": "mirror_right",
+        "head": null,
+        "chest": {"rot_x": -1},
+        "expression": "neutral",
+        "duration": 12
+    },
+    "pulkstenis": {
+        "right": {
+            "shape": "Hand_T",
+            "location": "Location_ChestMiddleClose3",
+            "orientation": "Orientation_Upwards_y2_Forwards_z3",
+            "move": [
+                { "type": "flip", "rot_y": 20, "loc_y": -0.01, "loc_z": -0.03, "from_shape": "Hand_Hook", "settle": false, "weight": 1 },
+                { "type": "flip", "rot_y": -20, "loc_y":  0.01, "loc_z":  0.03, "from_shape": "Hand_T", "settle": false, "weight": 1 },
+                { "type": "flip", "rot_y": 20, "loc_y": -0.01, "loc_z": -0.03, "from_shape": "Hand_Hook", "settle": true, "weight": 1 }
+            ]
+        },
+        "left": {
+            "shape": "Hand_Open",
+            "location": "Location_ChestMiddleClose2",
+            "orientation": "Orientation_Forwards_y2_Down_z2",
             "move": null
         },
         "head": {"loc_y": 0.01, "rot_z": -5},
-        "expression": "questioning",
+        "chest": {"rot_z": -10},
+        "expression": "neutral",
+        "duration": 16
+    },
+    "vienos": {
+        "right": {
+            "shape": "Hand_P",
+            "location": "Location_Neutral",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "orbit", "plane": "xz", 
+                "radius_a": 0.03, "cycles": 2, "direction": "cw", 
+                "phase": 90, "arc": 0.75, "settle": false
+            }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 16
+    },
+    "divos": {
+        "right": {
+            "shape": "Hand_V",
+            "location": "Location_Neutral",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "orbit", "plane": "xz", 
+                "radius_a": 0.03, "cycles": 2, "direction": "cw", 
+                "phase": 90, "arc": 0.75, "settle": false
+            }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 16
+    },
+    "trijos": {
+        "right": {
+            "shape": "Hand_3",
+            "location": "Location_Neutral",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "orbit", "plane": "xz", 
+                "radius_a": 0.03, "cycles": 2, "direction": "cw", 
+                "phase": 90, "arc": 0.75, "settle": false
+            }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 16
+    },
+    "četros": {
+        "right": {
+            "shape": "Hand_4",
+            "location": "Location_Neutral",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "orbit", "plane": "xz", 
+                "radius_a": 0.03, "cycles": 2, "direction": "cw", 
+                "phase": 90, "arc": 0.75, "settle": false
+            }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 16
+    },
+    "piecos": {
+        "right": {
+            "shape": "Hand_5",
+            "location": "Location_Neutral",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "orbit", "plane": "xz", 
+                "radius_a": 0.03, "cycles": 2, "direction": "cw", 
+                "phase": 90, "arc": 0.75, "settle": false
+            }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 16
+    },
+    "sešos": {
+        "right": {
+            "shape": "Hand_4",
+            "location": "Location_ShoulderBackwards",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "orbit", "plane": "xz",
+                "radius_a": 0.03, "cycles": 2, "direction": "cw",
+                "phase": 90, "arc": 0.75, "settle": false
+            }
+        },
+        "left": {
+            "shape": "Hand_5",
+            "mirror_right": true
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 16
+    },
+    "septiņos": {
+        "right": {
+            "shape": "Hand_L",
+            "location": "Location_ShoulderBackwards",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "orbit", "plane": "xz",
+                "radius_a": 0.03, "cycles": 2, "direction": "cw",
+                "phase": 90, "arc": 0.75, "settle": false
+            }
+        },
+        "left": {
+            "shape": "Hand_5",
+            "mirror_right": true
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 16
+    },
+    "astoņos": {
+        "right": {
+            "shape": "Hand_3",
+            "location": "Location_ShoulderBackwards",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "orbit", "plane": "xz",
+                "radius_a": 0.03, "cycles": 2, "direction": "cw",
+                "phase": 90, "arc": 0.75, "settle": false
+            }
+        },
+        "left": {
+            "shape": "Hand_5",
+            "mirror_right": true
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 16
+    },
+    "deviņos": {
+        "right": {
+            "shape": "Hand_4",
+            "location": "Location_ShoulderBackwards",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "orbit", "plane": "xz",
+                "radius_a": 0.03, "cycles": 2, "direction": "cw",
+                "phase": 90, "arc": 0.75, "settle": false
+            }
+        },
+        "left": {
+            "shape": "Hand_5",
+            "mirror_right": true
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 16
+    },
+    "pirmais": {
+        "right": {
+            "shape": "Hand_P",
+            "location": "Location_ChestMiddleClose3",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "flip", "rot_z": 180, "loc_z": 0.1, 
+                "arm_rot_x": -70, "arm_rot_y": 80, "arm_rot_z": 60,
+                "settle": true
+            }
+        },
+        "left": null,
+        "head": null,
+        "expression": "neutral",
+        "duration": 10
+    },
+    "otrais": {
+        "right": {
+            "shape": "Hand_V",
+            "location": "Location_ChestMiddleClose3",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "flip", "rot_z": 180, "loc_z": 0.1, 
+                "arm_rot_x": -70, "arm_rot_y": 80, "arm_rot_z": 60,
+                "settle": true
+            }
+        },
+        "left": null,
+        "head": null,
+        "expression": "neutral",
+        "duration": 10
+    },
+    "trešais": {
+        "right": {
+            "shape": "Hand_3",
+            "location": "Location_ChestMiddleClose3",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "flip", "rot_z": 180, "loc_z": 0.1, 
+                "arm_rot_x": -70, "arm_rot_y": 80, "arm_rot_z": 60,
+                "settle": true
+            }
+        },
+        "left": null,
+        "head": null,
+        "expression": "neutral",
+        "duration": 10
+    },
+    "ceturtais": {
+        "right": {
+            "shape": "Hand_4",
+            "location": "Location_ChestMiddleClose3",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "flip", "rot_z": 180, "loc_z": 0.1, 
+                "arm_rot_x": -70, "arm_rot_y": 80, "arm_rot_z": 60,
+                "settle": true
+            }
+        },
+        "left": null,
+        "head": null,
+        "expression": "neutral",
+        "duration": 10
+    },
+    "piektais": {
+        "right": {
+            "shape": "Hand_5",
+            "location": "Location_ChestMiddleClose3",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "flip", "rot_z": 180, "loc_z": 0.1, 
+                "arm_rot_x": -70, "arm_rot_y": 80, "arm_rot_z": 60,
+                "settle": true
+            }
+        },
+        "left": null,
+        "head": null,
+        "expression": "neutral",
+        "duration": 10
+    },
+    "sestais": {
+        "right": {
+            "shape": "Hand_6",
+            "location": "Location_ChestMiddleClose3",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "flip", "rot_x": -30, "rot_z": 180, "loc_z": 0.1, 
+                "arm_rot_x": -70, "arm_rot_y": 80, "arm_rot_z": 60,
+                "settle": true
+            }
+        },
+        "left": {
+            "shape": "Hand_5",
+            "location": "Location_ChestMiddleClose3",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "flip", "rot_z": 180, "loc_z": 0.1, 
+                "arm_rot_x": -70, "arm_rot_y": 80, "arm_rot_z": 60,
+                "settle": true
+            }
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 10
+    },
+    "septītais": {
+        "right": {
+            "shape": "Hand_V",
+            "location": "Location_ChestMiddleClose3",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "flip", "rot_z": 180, "loc_z": 0.1, 
+                "arm_rot_x": -70, "arm_rot_y": 80, "arm_rot_z": 60,
+                "settle": true
+            }
+        },
+        "left": {
+            "shape": "Hand_5",
+            "mirror_right": true
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 10
+    },
+    "astotais": {
+        "right": {
+            "shape": "Hand_3",
+            "location": "Location_ChestMiddleClose3",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "flip", "rot_z": 180, "loc_z": 0.1, 
+                "arm_rot_x": -70, "arm_rot_y": 80, "arm_rot_z": 60,
+                "settle": true
+            }
+        },
+        "left": {
+            "shape": "Hand_5",
+            "mirror_right": true
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 10
+    },
+    "devītais": {
+        "right": {
+            "shape": "Hand_4",
+            "location": "Location_ChestMiddleClose3",
+            "orientation": "Orientation_Upwards_Forwards",
+            "move": {
+                "type": "flip", "rot_z": 180, "loc_z": 0.1, 
+                "arm_rot_x": -70, "arm_rot_y": 80, "arm_rot_z": 60,
+                "settle": true
+            }
+        },
+        "left": {
+            "shape": "Hand_5",
+            "mirror_right": true
+        },
+        "head": null,
+        "expression": "neutral",
+        "duration": 10
+    },
+    "šodien": {
+        "right": {
+            "shape": "Hand_F",
+            "location": "Location_ChestMiddleClose",
+            "orientation": "Orientation_Forwards_Up",
+            "move": [
+                { "type": "flip", "loc_y": -0.01, "loc_z": -0.03, "settle": false },
+                { "type": "flip", "loc_y":  0.01, "loc_z":  0.03, "settle": false },
+                { "type": "flip", "loc_y": -0.01, "loc_z": -0.03, "settle": true }
+            ]
+        },
+        "left": "mirror_right",
+        "head": "Head_Nod",
+        "expression": "neutral",
+        "duration": 10
+    },
+    "rīt": {
+        "right": {
+            "shape": "Hand_6",
+            "location": "Location_Cheekbone",
+            "orientation": "Orientation_Upwards_Left",
+            "move": {
+                "type": "flip", "rot_x": -75, "rot_y": -15,
+                "loc_y": -0.03, "loc_z": -0.05, 
+                "arm_rot_z": -30
+            }
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": {"loc_y": 0.03},
+        "expression": "mth_j",
+        "duration": 12
+    },
+    "vakar": {
+        "right": {
+            "shape": "Hand_6",
+            "location": "Location_CheekFar",
+            "orientation": "Orientation_Upwards_Left_z2",
+            "move": [
+                { "type": "flip", "rot_x":  15, "rot_z":  15, "loc_y":  0.05, "loc_z":  -0.01, "settle": false },
+                { "type": "flip", "rot_x": -15, "rot_z": -15, "loc_y": -0.05, "loc_z":  0.01, "settle": false },
+                { "type": "flip", "rot_x":  15, "rot_z":  15, "loc_y":  0.05, "loc_z":  -0.01, "settle": true }
+            ]
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": {"rot_z": 5},
+        "expression": "neutral",
         "duration": 12
     },
     "rīts": {
         "right": {
             "shape": "Hand_BThumb",
-            "location": "Location_ChinRight",
-            "orientation": "Orientation_Upwards_ForwardsBackLeft_Up",
+            "location": "Location_ChinMiddleRight",
+            "orientation": "Orientation_Upwards_yn1_Forwards_z4_High",
             "move": {
                 "type": "flip", 
                 "loc_x": -0.02, "loc_z": 0.08, "arm_rot_z": 20, "settle": false
@@ -1033,7 +2516,7 @@
             "move": null
         },
         "head": {"loc_x": 0.01, "loc_y": 0.03, "rot_x": 95, "rot_z": 2.5},
-        "expression": "neutral",
+        "expression": "mth_j",
         "duration": 16
     },
     "diena": {
@@ -1060,7 +2543,7 @@
         "right": {
             "shape": "Hand_Frame",
             "location": "Location_CheekFar",
-            "orientation": "Orientation_Upwards_LeftUp",
+            "orientation": "Orientation_Upwards_yn1_Left_High",
             "move": {
                 "type": "finger_wiggle",
                 "shape_2": "Hand_Beak",
@@ -1082,7 +2565,7 @@
         "right": {
             "shape": "Hand_G",
             "location": "Location_Neutral",
-            "orientation": "Orientation_Left_Backwards",
+            "orientation": "Orientation_Left_Back",
             "move": {
                 "type": "orbit", "plane": "xz", 
                 "radius_a": 0.05, "cycles": 1, "direction": "ccw", 
@@ -1102,7 +2585,7 @@
         "right": {
             "shape": "Hand_Quote",
             "location": "Location_Cheekbone",
-            "orientation": "Orientation_Upwards_LeftBackwards",
+            "orientation": "Orientation_Upwards_Left_z2",
             "move": {
                 "type": "slide", "direction": "down", "distance": 0.05
             }
@@ -1116,11 +2599,31 @@
         "expression": "neutral",
         "duration": 10
     },
+    "justies": {
+        "right": {
+            "shape": "Hand_T",
+            "location": "Location_ChestRight",
+            "orientation": "Orientation_Upwards_y2_Forwards_z3",
+            "move": [
+                { "type": "flip", "rot_y": 45, "rot_z": 17, "loc_x": 0.01, "loc_y": -0.05, "loc_z": -0.03, "settle": false },
+                { "type": "flip", "rot_y": -45, "rot_z": -17, "loc_x": -0.02, "loc_y": 0.05, "loc_z": 0.05, "settle": true }
+            ]
+        },
+        "left": {
+            "shape": "Hand_B",
+            "location": "Location_ChestMiddleClose3",
+            "orientation": "Orientation_Forwards_x2_y2_Down_z3",
+            "move": null
+        },
+        "head": "Head_Nod",
+        "expression": "neutral",
+        "duration": 12
+    },
     "labs": {
         "right": {
             "shape": "Hand_B",
             "location": "Location_ChestRight",
-            "orientation": "Orientation_UpwardsLeft_BackwardsLeft",
+            "orientation": "Orientation_Left_x2_Back",
             "move": {"type": "flip", "loc_z": -0.03, "rot_x": -20, "settle": true}
         },
         "left": {
@@ -1132,11 +2635,42 @@
         "expression": "happy",
         "duration": 14
     },
+    "slikts": {
+        "right": {
+            "shape": "Hand_I",
+            "location": "Location_Neutral",
+            "orientation": "Orientation_Upwards_Left",
+            "move": {"type": "flip", "rot_x": -15, "loc_y": -0.03, "loc_z": -0.03}
+        },
+        "left": {
+            "shape": "Start_Position",
+            "orientation": "Start_Position",
+            "move": null
+        },
+        "head": null,
+        "expression": "sad",
+        "duration": 12
+    },
+    "lūdzu": {
+        "right": {
+            "shape": "Hand_B",
+            "location": "Location_ChestMiddle",
+            "orientation": "Orientation_Upwards_Left",
+            "move": [
+                {"type": "flip", "rot_y": 7, "rot_z": 5, "loc_x": 0.016, "loc_y": 0.01, "loc_z": -0.03, "settle": false, "weight": 1},
+                {"type": "wave", "rot_x": 15, "rot_y": 0, "rot_z": 0, "loc_x": 0, "loc_z": 0.005, "weight": 4}
+            ]
+        },
+        "left": "mirror_right",
+        "head": "Head_Nod",
+        "expression": "mth_m",
+        "duration": 20
+    },
     "paldies": {
         "right": {
             "shape": "Hand_B",
             "location": "Location_Mouth",
-            "orientation": "Orientation_UpwardsLeft_BackwardsLeft_Up",
+            "orientation": "Orientation_Left_x1_y1_Back",
             "move": { 
                 "type": "scallop", "loc_x": -0.05, 
                 "loc_y": -0.08, "loc_z": -0.1, "arch_height": 0.03,
@@ -1156,7 +2690,7 @@
         "right": {
             "shape": "Hand_Cup",
             "location": "Location_ShoulderBackwards",
-            "orientation": "Orientation_Left_Backwards",
+            "orientation": "Orientation_Left_Back",
             "move": {
                 "type": "circle", "plane": "xz", 
                 "radius_a": 20,

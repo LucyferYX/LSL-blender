@@ -117,54 +117,39 @@ for bone, empty in l_fingers.items(): dtrack(bone, empty)
 clear("J_Bip_C_Head")
 dtrack("J_Bip_C_Head", "Empty_Head")
 
-# ── EYES — rotation drivers ───────────────────────────────────────────────────
-# Eyes counter-rotate slightly against head movement so they appear more stable.
-# Driven from Empty_Head directly so they react only to *changes* from rest,
-# not the absolute rotation (which differs from the eye bone rest orientation).
-#
-# Tune these two constants if the effect is too strong or too subtle:
-REST_LOC_Y  = 0.02   # Empty_Head Y location at neutral (metres)
-LOC_Y_SCALE = 6.0    # radians/m  — loc_y delta → eye X counter-rotation (nod)
-ROT_Z_SCALE = 0.5    # fraction   — rot_z delta → eye Z counter-rotation (shake)
-
-head_empty = em("Empty_Head")
-
-def _clear_eye_drivers(bone_name):
-    if not arm.animation_data:
-        return
-    for fc in list(arm.animation_data.drivers):
-        if f'pose.bones["{bone_name}"]' in fc.data_path:
-            arm.animation_data.drivers.remove(fc)
-
-def _transform_var(driver, name, obj, transform_type):
-    v = driver.variables.new()
-    v.name = name
-    v.type = 'TRANSFORMS'
-    v.targets[0].id = obj
-    v.targets[0].transform_type = transform_type
-    v.targets[0].transform_space = 'WORLD_SPACE'
-
-for _eye_bone in ("J_Adj_L_FaceEye", "J_Adj_R_FaceEye"):
+# ── EYES — Copy Rotation constraints ─────────────────────────────────────────
+# Each eye bone copies its Empty_*Eye rotation in Add mode so that
+# rotation_euler (0,0,0) on the empty = natural forward gaze (bone rest pose).
+# animate_eyes() in animation_moves.py keyframes these empties per sign.
+_EYE_BONE_MAP = {
+    "J_Adj_L_FaceEye": "Empty_LeftEye",
+    "J_Adj_R_FaceEye": "Empty_RightEye",
+}
+for _eye_bone, _eye_empty_name in _EYE_BONE_MAP.items():
     _pbone = arm.pose.bones.get(_eye_bone)
     if not _pbone:
         print(f"  SKIP: {_eye_bone} not found"); continue
 
-    _pbone.rotation_mode = 'XYZ'
-    _clear_eye_drivers(_eye_bone)
-    for _con in list(_pbone.constraints):          # remove any leftover constraints
+    # Remove any leftover scripted drivers from the old driver-based approach
+    if arm.animation_data:
+        for _fc in list(arm.animation_data.drivers):
+            if f'pose.bones["{_eye_bone}"]' in _fc.data_path:
+                arm.animation_data.drivers.remove(_fc)
+
+    # Remove any existing constraints (idempotent on re-run)
+    for _con in list(_pbone.constraints):
         _pbone.constraints.remove(_con)
 
-    # X — counter nod: when head loc_y drops, eyes drift slightly up
-    _fc = arm.driver_add(f'pose.bones["{_eye_bone}"].rotation_euler', 0)
-    _fc.driver.type = 'SCRIPTED'
-    _transform_var(_fc.driver, "loc_y", head_empty, 'LOC_Y')
-    _fc.driver.expression = f"-{LOC_Y_SCALE} * (loc_y - {REST_LOC_Y})"
+    _eye_empty_obj = bpy.data.objects.get(_eye_empty_name)
+    if not _eye_empty_obj:
+        print(f"  SKIP: {_eye_empty_name} not found in scene"); continue
 
-    # Z — counter shake: when head rotates on Z, eyes drift slightly opposite
-    _fc = arm.driver_add(f'pose.bones["{_eye_bone}"].rotation_euler', 2)
-    _fc.driver.type = 'SCRIPTED'
-    _transform_var(_fc.driver, "rot_z", head_empty, 'ROT_Z')
-    _fc.driver.expression = f"-{ROT_Z_SCALE} * rot_z"
+    _con = _pbone.constraints.new('COPY_ROTATION')
+    _con.name = "Copy Eye Empty"
+    _con.target       = _eye_empty_obj
+    _con.mix_mode     = 'ADD'
+    _con.target_space = 'WORLD'
+    _con.owner_space  = 'LOCAL'
 
 print("Bone constraints have been set.")
 
