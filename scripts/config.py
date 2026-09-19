@@ -74,6 +74,7 @@ EXPRESSION_MAP = {
     "smiling":     {"Fcl_ALL_Fun": 1},
     "questioning": {"Fcl_BRW_Surprised": 1, "Fcl_EYE_Spread": 0.3, "Fcl_MTH_Surprised": 0.3, "Fcl_MTH_Close": 1.5},
     "concerned":   {"Fcl_BRW_Sorrow": 0.8, "Fcl_MTH_U": 0.6, "Fcl_EYE_Angry": 0.5},
+    "squint":      {"Fcl_BRW_Sorrow": 0.5, "Fcl_EYE_Angry": 0.7},
     "mth_m":       {"Fcl_MTH_Close": 8},
     "mth_f":       {"Fcl_MTH_Angry": 1.0},
     # Mouthing visemes — vowels

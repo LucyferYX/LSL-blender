@@ -19,22 +19,35 @@ def _apply_start_position(side, frame):
         load_pose(shape, side=side, apply_arm=False, apply_fingers=True, keyframe_on_frame=frame)
 
 
-def _apply_arm_offset(hd, side, frame):
-    """Apply arm_offset [x, y, z] degrees delta from signs.json to the arm empty, then re-keyframe it."""
-    offset = hd.get("arm_offset")
-    if not offset:
-        return
-    dx, dy, dz = math.radians(offset[0]), math.radians(offset[1]), math.radians(offset[2] if len(offset) > 2 else 0)
-    if side == "left":
-        dy, dz = -dy, -dz
-    arm_name = LEFTARM_EMPTY if side == "left" else RIGHTARM_EMPTY
-    obj = bpy.data.objects.get(arm_name)
-    if not obj:
-        return
-    obj.rotation_euler.x += dx
-    obj.rotation_euler.y += dy
-    obj.rotation_euler.z += dz
-    obj.keyframe_insert(data_path="rotation_euler", frame=frame)
+def _apply_pose_offsets(hd, side, frame):
+    """Apply arm_rot_offset and hand_rot_offset deltas (degrees) from signs.json, then re-keyframe."""
+    arm_name  = LEFTARM_EMPTY  if side == "left" else RIGHTARM_EMPTY
+    hand_name = LEFTHAND_EMPTY if side == "left" else RIGHTHAND_EMPTY
+
+    arm_rot  = hd.get("arm_rot_offset")
+    hand_rot = hd.get("hand_rot_offset")
+
+    if arm_rot:
+        obj = bpy.data.objects.get(arm_name)
+        if obj:
+            dx = math.radians(arm_rot[0])
+            dy = math.radians(arm_rot[1]) * (-1 if side == "left" else 1)
+            dz = math.radians(arm_rot[2] if len(arm_rot) > 2 else 0) * (-1 if side == "left" else 1)
+            obj.rotation_euler.x += dx
+            obj.rotation_euler.y += dy
+            obj.rotation_euler.z += dz
+            obj.keyframe_insert(data_path="rotation_euler", frame=frame)
+
+    if hand_rot:
+        obj = bpy.data.objects.get(hand_name)
+        if obj:
+            dx = math.radians(hand_rot[0])
+            dy = math.radians(hand_rot[1]) * (-1 if side == "left" else 1)
+            dz = math.radians(hand_rot[2] if len(hand_rot) > 2 else 0) * (-1 if side == "left" else 1)
+            obj.rotation_euler.x += dx
+            obj.rotation_euler.y += dy
+            obj.rotation_euler.z += dz
+            obj.keyframe_insert(data_path="rotation_euler", frame=frame)
 
 
 def lock_pose_at_frame(location, orientation, shape, frame, side="right", use_location=True, apply_orientation=True):
@@ -118,7 +131,7 @@ def create_sequence(sentence):
             hd = sides_config[side]
             load_pose(hd["orientation"], side=side, apply_arm=True, apply_fingers=False,
                       apply_arm_location=False, apply_arm_rotation=True, keyframe_on_frame=target_frame)
-            _apply_arm_offset(hd, side, target_frame)
+            _apply_pose_offsets(hd, side, target_frame)
         for side, hd in sides_config.items():
             load_pose(hd["shape"], side=side, apply_arm=False, apply_fingers=True, keyframe_on_frame=target_frame)
         if expression != prev_expression:
@@ -174,7 +187,7 @@ def create_sequence(sentence):
                     apply_orientation=not protect_rotation
                 )
                 if not protect_rotation:
-                    _apply_arm_offset(hd, side, frame)
+                    _apply_pose_offsets(hd, side, frame)
 
         # Hold expression through the sign — prevents BEZIER from fading early
         keyframe_expression(expression, settle_frame)

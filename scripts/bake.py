@@ -76,6 +76,7 @@ def _animate_sign_for_baking(word, data, start_frame=1):
         load_pose(hd["orientation"], side=side, apply_arm=True, apply_fingers=False,
                   apply_arm_location=False, apply_arm_rotation=True,
                   keyframe_on_frame=sign_frame)
+        _apply_pose_offsets(hd, side, sign_frame)
     for side, hd in sides_config.items():
         load_pose(hd["shape"], side=side,
                   apply_arm=False, apply_fingers=True,
@@ -123,6 +124,8 @@ def _animate_sign_for_baking(word, data, start_frame=1):
                 use_location=False,
                 apply_orientation=not protect_rotation
             )
+            if not protect_rotation:
+                _apply_pose_offsets(hd, side, frame)
 
     # Hold expression through the sign — prevents BEZIER from fading early
     keyframe_expression(expression, settle_frame)

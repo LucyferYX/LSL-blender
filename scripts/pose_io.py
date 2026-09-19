@@ -435,6 +435,12 @@ def reset_animation():
         _eye = bpy.data.objects.get(_eye_name)
         if _eye:
             _eye.rotation_euler = (0.0, 0.0, 0.0)
+    r_shoulder = bpy.data.objects.get(RIGHTSHOULDER_EMPTY)
+    if r_shoulder:
+        r_shoulder.location = (-0.17, -0.025, 1.49)
+    l_shoulder = bpy.data.objects.get(LEFTSHOULDER_EMPTY)
+    if l_shoulder:
+        l_shoulder.location = (0.17, -0.025, 1.49)
     face_obj = bpy.data.objects.get(FACE_MESH_NAME)
     if face_obj and face_obj.data.shape_keys:
         sk = face_obj.data.shape_keys
